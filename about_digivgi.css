@@ -1,0 +1,173 @@
+ /*=================================================JAI SHREE KRISHNA======================================== */
+.runway{
+    height: 103vh;
+    width: 30px;
+    position:absolute;
+    z-index: 2;
+    left: 0;
+    background:black;
+    top: 0vh;
+}
+.runway img.airplane1{
+    width: 27px;
+    position: absolute;
+    top: 1vh;
+    left: 1px;
+    animation: flight1 5s ease-in 5s alternate 1;
+}
+.runway img.airplane2{
+    width: 27px;
+    position: absolute;
+    top: 4vh;
+    left: 1px;
+    animation: flight2 5s ease-in 2s alternate 1;
+}
+@keyframes flight1{
+    0%{
+        top:1vh;
+    }
+    100%{
+        top: 95vh;
+        transform: scale(3);
+    }
+}
+@keyframes flight2{
+    0%{
+        top:4vh;
+    }
+    100%{
+        top: 95vh;
+        transform: scale(3);
+    }
+}
+.runway .trackmark{
+    margin-top:44px;
+    margin-left: 6px;
+    font-size:15px;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    color: white;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: trackmark 2s ease alternate infinite;
+}
+@keyframes trackmark{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+.runway .trackline{
+    width: 4px;
+    background: white;
+    color: white;
+    height: 20px;
+    writing-mode: vertical-rl;
+}
+.runway .trackline2{
+    width: 4px;
+    background: white;
+    color: white;
+    height: 20px;
+    margin: 10px 13px;
+    writing-mode: vertical-rl;
+}
+.founder_div{
+    width: 110px;
+    height: 110px;
+    background: none;
+    border: 2px solid black;
+    padding: 3px;
+    border-radius: 50%;
+    margin: auto;
+}
+.founder_coloumn{
+    border-bottom: 5px double blueviolet;
+    width: 100%;
+    margin: auto;
+}
+.founder_coloumn:hover{
+    box-shadow: 5px 5px 10px grey;
+}
+.founder_coloumn img{
+    width: 100%;
+    /* height: 100px; */
+    /* border-radius: 50%; */
+    /* margin: auto; */
+}
+.founder_div2{
+    text-align: justify;
+    margin: 10px;
+}
+.founder_div2 b{
+    color: blueviolet;
+}
+.founder_div2 h2{
+    color: orangered;
+    display:inline-block;
+    margin-left: 10px;
+}
+.founder_div2 a{
+color: orangered;
+font-size: 20px;
+margin-left: 12px;
+}
+.main-section{
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    margin: auto;
+}
+.main-section section{
+    width: 90%;
+    margin-left: auto;
+    color:black;
+    text-align:justify;
+    line-height: 1.5;
+}
+.main-section section p{
+    font-size:15px;
+    padding-right: 10px;
+}
+.main-section section img{
+    margin-top:2vh;
+}
+.scanner{
+    width: 100%;
+    background:rgba(128, 255, 0, 0.836);
+    height: 4px;
+    position: absolute;
+    top: 0px;
+    animation: scan 7s ease-in alternate infinite;
+}
+.scanner::after{
+    content: "";
+    position: absolute;
+    background: rgba(126, 248, 3, 0.356);
+    height: calc(100% + 100px);
+    filter: blur(20px);
+    width: 100%;
+}
+@keyframes scan{
+    from{
+        top: 0%;
+    }
+    to{
+        top:100%;
+    }
+}
+
+@media (min-width:612px){
+    .founder_coloumn{
+        width: 65%;
+        margin:20vh auto auto;
+    }
+    .main-section{
+        width: 65%;
+    }
+    .main-section section img{
+        margin-top: 10vh;
+    }
+}
