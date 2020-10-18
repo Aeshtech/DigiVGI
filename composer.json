@@ -1,4 +1,6 @@
 {
+    "name": "phpoffice/phpspreadsheet",
+    "description": "Php Spreadsheet and php mailer",
     "require": {
         "phpmailer/phpmailer": "^6.1",
         "phpoffice/phpspreadsheet": "^1.15"
