@@ -109,7 +109,7 @@
                         <th>Faculty id</th>
                         <th>Subject Name</th>
                         <th>Subject Code</th>
-                        <th>Date</th>
+                        <th>C-Permit</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -129,7 +129,7 @@
                         <td><?php echo $row['facultyid'] ?></td>
                         <td><?php echo $row['subjectname'] ?></td>
                         <td><?php echo $row['subjectcode'] ?></td>
-                        <td><?php echo $row['date'] ?></td>
+                        <td><?php echo $row['cpermit'] ?></td>
                         <td class="text-center">
                             <a href="assignfaculty.php?id=<?php echo $row['id'] ?>" class="update">Update</a>
                             <a href="action4.php?delete=<?php echo $row['id'] ?>" class="delete"
