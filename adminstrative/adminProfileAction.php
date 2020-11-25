@@ -16,7 +16,6 @@ if(mysqli_num_rows($result)==1){
     $email = $row['email'];
     $name = $row['name'];   
     $phone = $row['phone'];
-    $gender = $row['gender'];
 
 }
 
@@ -29,7 +28,6 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     $email = filter_var($email,FILTER_SANITIZE_EMAIL);
     $name = $_POST['name'];
     $phone = $_POST['phone'];
-    $gender = $_POST['gender'];
 
     $imgtype = strtolower(pathinfo($_FILES['photo']['name'],PATHINFO_EXTENSION));   //taking extension from file name.
     if(isset($_FILES['photo']['name']) && ($_FILES['photo']['name']!="") && ($imgtype!="jpg" && $imgtype!="jpeg" && $imgtype!="png")){
@@ -59,7 +57,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         else{
             $upload=$oldimage;
         }
-        $query = "UPDATE `admin` SET `name`='$name',`email`='$email',`phone`='$phone',`gender`='$gender',`photo`='$upload' WHERE `id`= '$id'";
+        $query = "UPDATE `admin` SET `name`='$name',`email`='$email',`phone`='$phone',`photo`='$upload' WHERE `id`= '$id'";
         $result = mysqli_query($conn,$query);
         if(mysqli_affected_rows($conn)){
 		    $_SESSION['success'] = "Profile updated successfully!";

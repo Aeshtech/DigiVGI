@@ -33,7 +33,7 @@
             <div class="dropdown-content">
                 <a><i class="fas fa-user-circle"></i><?php echo $row['name']; ?></a>
                 <a><i class="fas fa-envelope"></i><?php echo $email; ?></a>
-                <form action="../adminstrative/logout.php" method="POST">
+                <form action="../logout.php" method="POST">
                     <a><i class="fas fa-sign-out-alt"></i><input type="submit" name="signoutBtn"
                             value="Sign-out"></input></a>
                 </form>

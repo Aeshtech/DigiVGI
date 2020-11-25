@@ -15,6 +15,12 @@ $email="";
 $photo="default.jpg";
 $password="";
 
+$username = $_SESSION['username_admin'];
+$sql = "SELECT `course`,`branch` FROM `admin` WHERE `email`='$username'";
+$rslt = mysqli_query($conn,$sql);
+$pro = mysqli_fetch_assoc($rslt);
+$admin_course =$pro['course'];
+$admin_branch =$pro['branch'];
 
 function test_input($data){
 	$data = trim($data);
@@ -71,9 +77,11 @@ if(isset($_POST['submit'])){
 		$upload = "uploads/".$newfilename;          // assigning the path to variable.
 		$tempname = $_FILES['photo']['tmp_name'];  //this will fetch temporary name of the file from the $_FILES array..!
 		
-		$query = "INSERT INTO `faculty`(`name`,`phone`,`gender`,`email`,`password`,`photo`,`user_type`)VALUES('$name','$phone','$gender','$email','$password','$upload','$user_type')";
-		$result=mysqli_query($conn,$query);
-		if($result){
+		$query1 = "INSERT INTO `faculty`(`name`,`phone`,`course`,`branch`,`gender`,`email`,`password`,`photo`,`user_type`) VALUES('$name','$phone','$admin_course','$admin_branch','$gender','$email','$password','$upload','$user_type')";
+		
+		mysqli_query($conn,$query1);
+		
+		if(mysqli_affected_rows($conn)==1){
 		    $_SESSION['status'] = 'Successfully Inserted!';
 		    move_uploaded_file($tempname,$upload);
 			header('location:faculty.php');
@@ -97,8 +105,9 @@ if(isset($_GET['delete'])){
 		unlink($image);
 
 		// this will delete selected record from database permanently!
-		$sql = "delete from faculty where id=$id";
-		if(mysqli_query($conn, $sql)){
+		$query2 = "DELETE FROM `faculty` WHERE `id`='$id'";
+		mysqli_query($conn, $query2);
+		if(mysqli_affected_rows($conn)==1){
 			$_SESSION['status'] = 'Successfully Deleted!';
 			header('location:faculty.php');
 		}
@@ -176,10 +185,9 @@ if(isset($_GET['delete'])){
 			else{	
 				$password = $oldpassword;
 			}
-			$query="UPDATE `faculty` SET `name`=?,`phone`=?,`gender`=?,`email`= ?, `password` = ?,`photo`=? WHERE `id`=? ";
-			$stmt=$conn->prepare($query);
-			$stmt->bind_param("ssssssi", $name,$phone,$gender,$email,$password,$upload,$id);
-			if($stmt->execute()){
+			$query3="UPDATE `faculty` SET `name`='$name',`phone`='$phone',`gender`='$gender',`email`= '$email', `password` = '$password',`photo`='$upload' WHERE `id`='$id'";
+			mysqli_query($conn,$query3);
+			if(mysqli_affected_rows($conn)==1){
 				$_SESSION['status'] = 'Successfully Updated!';
 				header('location:faculty.php');
 			}

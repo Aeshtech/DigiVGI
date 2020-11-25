@@ -97,7 +97,7 @@ if(mysqli_num_rows($result)>0){
         </form>
 
         <!-- ------------Form as modal for export attendance record--------------- -->
-        <form action="export-attendance.php" id="openModal-export[<?php echo $i ?>]" method="POST" class="modalDialog">
+        <form action="export-by-spreadsheet.php" id="openModal-export[<?php echo $i ?>]" method="POST" class="modalDialog">
 
             <input type="hidden" name="course[<?php echo $i ?>]" value="<?php echo $row['course'] ?>">
             <input type="hidden" name="branch[<?php echo $i ?>]" value="<?php echo $row['branch'] ?>">

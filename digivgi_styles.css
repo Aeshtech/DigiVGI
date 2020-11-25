@@ -284,6 +284,7 @@
     display: grid;
     background:whitesmoke;
     grid-template-columns: auto;
+    margin-bottom:5vh;
     Padding: 10px;  
 }
 
@@ -788,6 +789,7 @@ tbody tr:nth-child(even){
 /*=================footer============*/
   .footer{
       margin-top: 1vh;
+      position: fixed;
       bottom: 0;
       background: var(--theme);
       height:6vh;

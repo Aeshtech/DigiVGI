@@ -23,10 +23,12 @@
 
         <?php 
     $username = $_SESSION['username_admin'];
-    $sql = "SELECT `photo` FROM `admin` WHERE `email`='$username'";
+    $sql = "SELECT `photo`,`course`,`branch` FROM `admin` WHERE `email`='$username'";
     $rslt = mysqli_query($conn,$sql);
     $pro = mysqli_fetch_assoc($rslt);
     $profile = $pro['photo'];
+    $admin_course = $pro['course'];
+    $admin_branch = $pro['branch'];
 
     ?>
         <!-- ===============Navigation Bar========================== -->
@@ -42,7 +44,7 @@
                 <div class="dropdown">
                     <div class="profile"><img src="<?=$profile;?>"></div>
                     <div class="dropdown-content">
-                        <form action="logout.php" method="POST">
+                        <form action="../logout.php" method="POST">
                             <a><i class="fas fa-sign-out-alt"></i><input type="submit" name="signoutBtn" value="Log-out"
                                     style="color: var(--primary);"></input></a>
                         </form>
@@ -108,7 +110,7 @@
                 </thead>
                 <tbody>
                     <?php
-                    $sql = "select * from student";
+                    $sql = "SELECT * FROM `student` WHERE `course`='$admin_course' AND `branch`='$admin_branch'";
                     $result = mysqli_query($conn, $sql); 
                     if(mysqli_num_rows($result)>0){     // mysqli_num_rows() return total count of rows!
                         while($row = mysqli_fetch_assoc($result)){
@@ -160,33 +162,7 @@
                     <input type="text" maxlength="10" minlength="10" required name="registration" id="registrationNo"
                         placeholder="-----Registration No-------" value="<?= $reg;?>">
                 </div>
-                <div>
-                    <label for="course">Course:</label>
-                    <select name="course" required id="course">
-                        <option value='' selected disabled>select</option>
-                        <option value="B.Tech" <?php if($course=='B.Tech'){echo "selected";} ?>> B.Tech </option>
-                        <option value="B.Pharma" <?php if($course=='B.Pharma'){echo "selected";} ?>> B.Pharma </option>
-                        <option value="Polytechnic" <?php if($course=='Polytechnic'){echo "selected";} ?>> Polytechnic
-                        </option>
-                        <option value="B.BA" <?php if($course=='B.BA'){echo "selected";} ?>> B.BA </option>
-                        <option value="B.Sc" <?php if($course=='B.Sc'){echo "selected";} ?>> B.Sc </option>
-                        <option value="M.Tech" <?php if($course=='M.Tech'){echo "selected";} ?>> M.Tech </option>
-                        <option value="M.Pharma" <?php if($course=='M.Pharma'){echo "selected";} ?>> M.Pharma </option>
-                        <option value="M.BA" <?php if($course=='M.BA'){echo "selected";} ?>> M.BA </option>
-                        <option value="M.Sc" <?php if($course=='M.Sc'){echo "selected";} ?>> M.Sc </option>
-                    </select>
-                </div>
-                <div>
-                    <label for="branch">Branch:</label>
-                    <select name="branch" required id="branch">
-                        <option value='None' selected <?php if($branch=='None'){echo "selected";} ?>>None</option>
-                        <option value="CSE" <?php if($branch=='CSE'){echo "selected";} ?>>Computer Science & Engg.</option>
-                        <option value="EE" <?php if($branch=='EE'){echo "selected";} ?>>Electrical Engg.</option>
-                        <option value="EEE" <?php if($branch=='EEE'){echo "selected";} ?>>Electrical & Elecronics Engg.</option>
-                        <option value="ME" <?php if($branch=='ME'){echo "selected";} ?>>Mechanical Engg.</option>
-                        <option value="CIVIL" <?php if($branch=='CIVIL'){echo "selected";} ?>>Civil Engg.</option>
-                    </select>
-                </div>
+                
                 <div>
                     <label for="semester">Semester:</label>
                     <select name="semester" id="semester" required>

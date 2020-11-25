@@ -49,7 +49,7 @@ if(!$_SESSION['username_admin'])
             <div class="dropdown">
                 <div class="profile"><img src="<?=$profile;?>"></div>
                 <div class="dropdown-content">
-                  <form action="logout.php" method="POST">
+                  <form action="../logout.php" method="POST">
                       <a><i class="fas fa-sign-out-alt"></i><input type="submit" name="signoutBtn" value="Log-out" style="color: var(--primary);"></input></a>
                   </form>
                   <a href="adminProfile.php"><i class="fas fa-user-circle"></i>Profile</a>

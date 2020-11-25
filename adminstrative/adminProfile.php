@@ -15,7 +15,6 @@ require("adminProfileAction.php");
 <!-- ==============================DigiVGI-Header================= -->
 <header>
     <div class="logodiv">
-        <!-- <a><img src="vgi-logo.jpg" id="logo"></a> -->
         <h1>Digi VGI</h1>
     </div>
 </header>
@@ -45,7 +44,9 @@ require("adminProfileAction.php");
         <form method="POST" action="adminProfileAction.php" enctype="multipart/form-data" >
             <input type="hidden" name="id" value="<?= $id ?>" >
             <input type="hidden" name="oldimage" value="<?php echo $photo; ?>">   <!-------for unlink oldimage on update operation----------->
-            <input type="file" name="photo" id="file" onchange="loadfile(event)" style="display: none;"> <!-- input 'file' field display hidden for profile photo, label will work as input element -->
+            <input type="file" name="photo" id="file" onchange="loadfile(event)" style="display: none;"> 
+
+            <!-- above input 'file' display hidden and label will work as input element -->
             <div class="label" style="margin:10px auto 20px;">
                 <label for="file" style="cursor:pointer;">Change your profile photo</label>
             </div>
@@ -73,14 +74,7 @@ require("adminProfileAction.php");
             echo '<span>'.$_SESSION['phoneErr'].'</span>';
                 unset($_SESSION['phoneErr']);
             }
-            ?><br>
-            <label>Gender
-                <select name="gender">
-                    <option value="female" <?php if($gender=='female'){echo "selected";}?>>Female</option>
-                    <option value="male" <?php if($gender=='male'){echo "Selected";}?> >Male</option>
-                    <option value="not-Defined" <?php if($gender=='not-defined'){echo "selected";}?>>Not Defined</option>
-                </select>
-            </label><br>   
+            ?><br>   
 
             <input type="submit" value="Update" name="update" onclick="return confirm('Please make sure all credentials are correct!!')">
         </form>

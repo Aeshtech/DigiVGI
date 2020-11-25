@@ -17,6 +17,7 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE );
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://kit.fontawesome.com/471f9934c1.js"></script>
 </head>
 
 <body>
@@ -81,9 +82,6 @@ if(mysqli_num_rows($result)>0){?>
                 <input type="hidden" name="date[<?php echo $i ?>]" value="<?php echo $date; ?>">
                 <input type="hidden" name="roll_no[<?php echo $i ?>]" value="<?php echo $row['roll_no'] ?>">
 
-                <!-- For checking is there any subject with this code in db which has been taken attendance already-->
-                <!-- <input type="hidden" name="subjectcode" value="<?php echo $subjectcode; ?>"> -->
-
                 <label class="status-label1">
                     <input type="radio" name="attendance[<?php echo $i ?>]" value="Present"
                         style="width: 20px;height:20px;" <?php if($row['status']=='Present'){?>checked<?php }?>>
@@ -100,6 +98,7 @@ if(mysqli_num_rows($result)>0){?>
     }
 }
 ?>
+
             <input type="submit" name="update_attendance" value="Save" class="save_attendance"
                 onclick="return confirm('Are you sure to make these attendance!')">
         </form>
@@ -121,6 +120,7 @@ if(mysqli_num_rows($result)>0){ ?>
                 <b><?php echo $semester ?></b>
                 <b><?php echo $section ?></b>
             </div>
+
             <marquee style="color:red;behavior:scroll;font-size:10px;display:block;">Note:Please do not refresh page before click on save,
             it may lost your current record!!</marquee>
 
@@ -154,12 +154,12 @@ if(mysqli_num_rows($result)>0){ ?>
                 <!-- Mandatory..Give each student radio button name different! -->
                 <label class="status-label1">
                     <input type="radio" name="attendance[<?php echo $i ?>]" value="Present"
-                        style="width: 20px;height:20px;">
+                        style="width: 20px;height:20px;" class="present_button">
                     <strong>Present</strong>
                 </label>
                 <label class="status-label2">
                     <input type="radio" name="attendance[<?php echo $i ?>]" value="Absent"
-                        style="width: 20px;height:20px;" checked>
+                        style="width: 20px;height:20px;" checked class="absent_button">
                     <strong>Absent</strong>
                 </label>
             </div>
@@ -172,21 +172,29 @@ if(mysqli_num_rows($result)>0){ ?>
 ?>
 
             <input type="submit" name="make_attendance" value="Save" class="save_attendance"
-                onclick="return confirm('Are you sure to make these attendance!')">
+                onclick="return confirm('Are you sure to make these attendance!')"><i class="fa fa-floppy-o fa-2x" aria-hidden="true"></i>
         </form>
+        <input type="checkbox" id="selectall" onchange="selectall()">
     </div>
     <?php } ?>
 
 
-
-
-
-
-    <script>
-    if (window.history.replaceState) {
-        window.history.replaceState(null, null, window.location.href);
+    
+<script>
+    function selectall(){
+    var x= document.getElementsByClassName("present_button");
+    var y= document.getElementsByClassName("absent_button");
+    var z = document.getElementById("selectall").checked;
+    if(z==true){
+        for(var i=0;i<=x.length;i++){
+            x[i].checked = true;
+            }
+    }else{
+        for(var i=0;i<=y.length;i++){
+            y[i].checked = true;
+        }
+        }
     }
-    </script>
+</script>
 </body>
-
 </html>

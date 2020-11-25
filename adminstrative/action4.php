@@ -6,6 +6,13 @@ if(!$_SESSION['username_admin'])
 }
 require("config.php");
 
+$username = $_SESSION['username_admin'];
+$sql = "SELECT `course`,`branch` FROM `admin` WHERE `email`='$username'";
+$rslt = mysqli_query($conn,$sql);
+$pro = mysqli_fetch_assoc($rslt);
+$admin_course =$pro['course'];
+$admin_branch =$pro['branch'];
+
 $update=false;
 $course="";
 $branch="";
@@ -15,12 +22,11 @@ $facultyname="";
 $facultyid="";
 $subjectname="";
 $subjectcode="";
+$cpermit="";
 
 
 /*------------For inserting record in database--------- */
 if(isset($_POST['submit'])){
-    $course = $_POST['course'];
-    $branch = $_POST['branch'];
     $semester = $_POST['semester'];
     $section = $_POST['section'];
     $facultyname = $_POST['facultyname'];
@@ -46,7 +52,7 @@ if(isset($_POST['submit'])){
         $_SESSION['error'] = "Subject code confirmation doesn't match!";
 		header('location:assignFaculty.php');
     }else{
-        $query = "INSERT INTO `assignfaculty`(`course`,`branch`,`semester`,`section`,`facultyname`,`facultyid`,`subjectname`,`subjectcode`)VALUES('$course','$branch','$semester','$section','$facultyname','$facultyid','$subjectname','$confirm_sub_code')";
+        $query = "INSERT INTO `assignfaculty`(`course`,`branch`,`semester`,`section`,`facultyname`,`facultyid`,`subjectname`,`subjectcode`)VALUES('$admin_course','$admin_branch','$semester','$section','$facultyname','$facultyid','$subjectname','$confirm_sub_code')";
         if(mysqli_query($conn,$query)){
             $_SESSION['status'] = 'Successfully inserted!';
             header('location:assignfaculty.php');
@@ -78,9 +84,7 @@ $result=mysqli_query($conn,$query);
 $numRows = mysqli_num_rows($result);
 if($numRows==1){
     $row = mysqli_fetch_assoc($result);
-
-    $course = $row['course'];
-    $branch = $row['branch'];
+    
     $semester = $row['semester'];
     $section = $row['section'];
     $facultyname = $row['facultyname'];
@@ -97,8 +101,6 @@ if($numRows==1){
 
 if(isset($_POST['update'])){
     $id = $_POST['id'];
-    $course = $_POST['course'];
-    $branch = $_POST['branch'];
     $semester = $_POST['semester'];
     $section = $_POST['section'];
     $facultyname = $_POST['facultyname'];
@@ -124,7 +126,7 @@ if(isset($_POST['update'])){
         $_SESSION['error'] = "Subject code confirmation doesn't match!";
 		header('location:assignFaculty.php');
     }else{
-        $query = "UPDATE `assignfaculty` set `course`='$course',`branch`='$branch',`semester`='$semester', `section`='$section',`facultyname`='$facultyname',`facultyid`='$facultyid', `subjectname`='$subjectname', `subjectcode`='$confirm_sub_code' WHERE `id`='$id'";
+        $query = "UPDATE `assignfaculty` set `semester`='$semester', `section`='$section',`facultyname`='$facultyname',`facultyid`='$facultyid', `subjectname`='$subjectname', `subjectcode`='$confirm_sub_code' WHERE `id`='$id'";
         $result= mysqli_query($conn,$query);
         if(mysqli_affected_rows($conn)==1){
             $_SESSION['status'] = 'Successfully Updated !';

@@ -27,11 +27,12 @@ require('config.php');
 
         <?php 
     $username = $_SESSION['username_admin'];
-    $sql = "SELECT `photo` FROM `admin` WHERE `email`='$username'";
+    $sql = "SELECT `photo`,`course`,`branch` FROM `admin` WHERE `email`='$username'";
     $rslt = mysqli_query($conn,$sql);
     $pro = mysqli_fetch_assoc($rslt);
     $profile = $pro['photo'];
-
+    $admin_course =$pro['course'];
+    $admin_branch =$pro['branch'];
     ?>
         <!-- ===============Navigation Bar========================== -->
         <div class="topnav" id="myTopnav">
@@ -47,7 +48,7 @@ require('config.php');
                 <div class="dropdown">
                     <div class="profile"><img src="<?=$profile;?>"></div>
                     <div class="dropdown-content">
-                        <form action="logout.php" method="POST">
+                        <form action="../logout.php" method="POST">
                             <a><i class="fas fa-sign-out-alt"></i><input type="submit" name="signoutBtn" value="Log-out"
                                     style="color: var(--primary);"></input></a>
                         </form>
@@ -72,38 +73,12 @@ require('config.php');
                 <select name="subjectname" required class="subjectname" required>
                 <option value="" selected disabled>Select Subject</option>
                     <?php 
-                    $query = "SELECT DISTINCT `subjectname` FROM `assignfaculty`";
+                    $query = "SELECT DISTINCT `subjectname` FROM `assignfaculty` WHERE `course`='$admin_course' AND `branch`='$admin_branch'";
                     $result = mysqli_query($conn,$query);
                     if(mysqli_num_rows($result)>0){
                         while($row = mysqli_fetch_assoc($result)){?>
                     <option value="<?php echo $row['subjectname']; ?>"><?php echo $row['subjectname']; ?></option>
                     <?php }} ?>
-                </select>
-            </div>
-            <div>
-                <label>Course:</label>
-                <select name="course" required >
-                    <option value='' selected disabled>select</option>
-                    <option value="B.Tech"> B.Tech </option>
-                    <option value="B.Pharma"> B.Pharma </option>
-                    <option value="Polytechnic"> Polytechnic</option>
-                    <option value="B.BA"> B.BA </option>
-                    <option value="B.Sc"> B.Sc </option>
-                    <option value="M.Tech"> M.Tech </option>
-                    <option value="M.Pharma"> M.Pharma </option>
-                    <option value="M.BA"> M.BA </option>
-                    <option value="M.Sc"> M.Sc </option>
-                </select>
-            </div>
-            <div>
-                <label>Branch:</label>
-                <select name="branch" required class="branch">
-                    <option value='None' selected>None</option>
-                    <option value="CSE">Computer Science & Engg.</option>
-                    <option value="EE">Electrical Engg.</option>
-                    <option value="EEE">Electrical & Elecronics Engg.</option>
-                    <option value="ME">Mechanical Engg.</option>
-                    <option value="CIVIL">Civil Engg.</option>
                 </select>
             </div>
             <div>
@@ -155,7 +130,7 @@ require('config.php');
                 <select name="subjectname" required class="subjectname">
                 <option value="" selected disabled>Select Subject</option>
                     <?php
-                    $query = "SELECT DISTINCT `subjectname` FROM `assignfaculty`";
+                    $query = "SELECT DISTINCT `subjectname` FROM `assignfaculty` WHERE `course`='$admin_course' AND `branch`='$admin_branch'";
                     $result = mysqli_query($conn,$query);
                     if(mysqli_num_rows($result)>0){
                         while($row = mysqli_fetch_assoc($result)){?>
@@ -187,13 +162,13 @@ require('config.php');
         <div class="home-grid-item3">
             <h2>Export Attendance Record</h2><br><br>
 
-            <form action="export_by_admin.php" method="POST">
+            <form action="export-by-spreadsheet.php" method="POST">
             <div>
                 <label>Subject Name:</label>
                 <select name="subjectname" required class="subjectname">
                     <option value="" selected disabled>Select Subject</option>
                     <?php 
-                    $query = "SELECT DISTINCT `subjectname` FROM `assignfaculty`";
+                    $query = "SELECT DISTINCT `subjectname` FROM `assignfaculty` WHERE `course`='$admin_course' AND `branch`='$admin_branch'";
                     $result = mysqli_query($conn,$query);
                     if(mysqli_num_rows($result)>0){
                         while($row = mysqli_fetch_assoc($result)){?>
@@ -201,32 +176,7 @@ require('config.php');
                     <?php }} ?>
                 </select>
             </div>
-            <div>
-                <label>Course:</label>
-                <select name="course" required >
-                    <option value='' selected disabled>select</option>
-                    <option value="B.Tech"> B.Tech </option>
-                    <option value="B.Pharma"> B.Pharma </option>
-                    <option value="Polytechnic"> Polytechnic</option>
-                    <option value="B.BA"> B.BA </option>
-                    <option value="B.Sc"> B.Sc </option>
-                    <option value="M.Tech"> M.Tech </option>
-                    <option value="M.Pharma"> M.Pharma </option>
-                    <option value="M.BA"> M.BA </option>
-                    <option value="M.Sc"> M.Sc </option>
-                </select>
-            </div>
-            <div>
-                <label>Branch:</label>
-                <select name="branch" required class="branch">
-                    <option value='None' selected>None</option>
-                    <option value="CSE">Computer Science & Engg.</option>
-                    <option value="EE">Electrical Engg.</option>
-                    <option value="EEE">Electrical & Elecronics Engg.</option>
-                    <option value="ME">Mechanical Engg.</option>
-                    <option value="CIVIL">Civil Engg.</option>
-                </select>
-            </div>
+            
             <div>
                 <label>Semester:</label>
                 <select name="semester" class="semester" required>

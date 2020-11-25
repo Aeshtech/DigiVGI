@@ -7,14 +7,19 @@ if(!$_SESSION['username_admin'])
 }
 require("config.php");
 
+$username = $_SESSION['username_admin'];
+$sql = "SELECT `course`,`branch` FROM `admin` WHERE `email`='$username'";
+$rslt = mysqli_query($conn,$sql);
+$pro = mysqli_fetch_assoc($rslt);
+$admin_course =$pro['course'];
+$admin_branch =$pro['branch'];
+
 $update=false;
 $id="";
 $reg="";
 $name="";
-$course="";
 $semester="";
 $section="";
-$branch="";
 $phone="";
 $gender="";
 $email="";
@@ -33,10 +38,8 @@ if(isset($_POST['submit'])){
 	$user_type = $_POST['user_type'];
     $registration = $_POST['registration'];
     $name = $_POST['name'];
-    $course = $_POST['course'];
     $semester = $_POST['semester'];
     $section = $_POST['section'];
-    $branch = $_POST['branch'];
 	$gender = $_POST['gender'];
 	$email = $_POST['email'];
     $phone = $_POST['phone'];
@@ -82,7 +85,7 @@ if(isset($_POST['submit'])){
 	    $upload = "uploads2/".$newfilename;          // assigning the path to variable.
 		$tempname = $_FILES['photo']['tmp_name'];  //this will fetch temporary name of the file from the $_FILES array..!
 		
-		$query = "INSERT INTO `student`(`registration`,`name`,`phone`,`course`,`branch`,`semester`,`section`,`email`,`gender`,`password`,`photo`,`user_type`)VALUES('$registration','$name','$phone','$course','$branch','$semester','$section','$email','$gender','$password','$upload','$user_type')";
+		$query = "INSERT INTO `student`(`registration`,`name`,`phone`,`course`,`branch`,`semester`,`section`,`email`,`gender`,`password`,`photo`,`user_type`)VALUES('$registration','$name','$phone','$admin_course','$admin_branch','$semester','$section','$email','$gender','$password','$upload','$user_type')";
 	    $result=mysqli_query($conn,$query);
 		if($result){
 			$_SESSION['status'] = 'Successfully Inserted!';
@@ -129,8 +132,6 @@ if(isset($_GET['delete'])){
     $reg=$row['registration'];
     $name=$row['name'];
 	$phone = $row['phone'];
-	$course = $row['course'];
-	$branch = $row['branch'];
     $semester = $row['semester'];
     $section = $row['section'];
     $email = $row['email'];
@@ -193,9 +194,9 @@ if(isset($_GET['delete'])){
 			else{	
 				$password = $oldpassword;
 			}
-			$query="UPDATE `student` SET `registration`=?,`name`=?,`phone`=?,`course`=?,`branch`=?,`semester`=?,`section`=?,`email`=?,`gender`=?, `password`=?,`photo`=? WHERE `id`=? ";
+			$query="UPDATE `student` SET `registration`=?,`name`=?,`phone`=?,`semester`=?,`section`=?,`email`=?,`gender`=?, `password`=?,`photo`=? WHERE `id`=? ";
 			$stmt=$conn->prepare($query);
-			$stmt->bind_param("sssssssssssi", $reg,$name,$phone,$course,$branch,$semester,$section,$email,$gender,$password,$upload,$id);
+			$stmt->bind_param("sssssssssi", $reg,$name,$phone,$semester,$section,$email,$gender,$password,$upload,$id);
 			if($stmt->execute()){
 				$_SESSION['status'] = 'Successfully Updated!';
 				header('location:student.php');

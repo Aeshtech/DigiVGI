@@ -1,4 +1,10 @@
+<!-- ===================================================================JAI SHREE KRISHNA=================================================== -->
 <?php
+session_start();
+if(!$_SESSION['username_admin'])
+{
+    header('Location: ../index.php');
+}
   require_once('config.php');
   $upload = 'uploads/';
 
@@ -29,24 +35,48 @@
   </head>
   <body>
 
+  <!-- ==============================DigiVGI-Header================= -->
   <header>
-    <div class="logodiv">
-      <!-- <a><img src="vgi-logo.jpg" id="logo"></a> -->
-      <h1>Digi VGI</h1>
-      <a href="#headprofile" class="head-profile">My Profile</a>
-    </div>
+        <div class="logodiv">
+            <h1>Digi VGI</h1>
+            <img src="vgi-logo.jpg" id="logo" style="left: 55%;top:14px">
+        </div>
 
-    <div class="topnav" id="myTopnav">
-      <a href="index.php">Home</a>
-      <a href="Faculty.php" >Faculty</a>
-      <a href="Student.php" class="active">Student</a>
-      <a href="Course.php">Course</a>
-      <a href="Subject.php">Subject</a>
-      <a href="AssignFaculty.php">Assign Faculty</a>
-      <a href="myProfile.php" id="myprofile">My Profile</a>
-    </a>
-  </div>
-  </header>
+        <?php 
+    $username = $_SESSION['username_admin'];
+    $sql = "SELECT `photo`,`course`,`branch` FROM `admin` WHERE `email`='$username'";
+    $rslt = mysqli_query($conn,$sql);
+    $pro = mysqli_fetch_assoc($rslt);
+    $profile = $pro['photo'];
+    $admin_course =$pro['course'];
+    $admin_branch =$pro['branch'];
+    ?>
+        <!-- ===============Navigation Bar========================== -->
+        <div class="topnav" id="myTopnav">
+            <a href="index.php">Home</a>
+            <a href="Faculty.php" >Faculty</a>
+            <a href="Student.php" class="active">Student</a>
+            <a href="AssignFaculty.php">Assign Faculty</a>
+            <a href="About.php">About us</a>
+
+
+            <div class="profile_div">
+                <span class="profile_name"><?php echo $username;?></span>
+                <div class="dropdown">
+                    <div class="profile"><img src="<?=$profile;?>"></div>
+                    <div class="dropdown-content">
+                        <form action="../logout.php" method="POST">
+                            <a><i class="fas fa-sign-out-alt"></i><input type="submit" name="signoutBtn" value="Log-out"
+                                    style="color: var(--primary);"></input></a>
+                        </form>
+                        <a href="adminProfile.php"><i class="fas fa-user-circle"></i>Profile</a>
+                        <a href="adminPrivacy.php"><i class="fas fa-key"></i>Privacy</a>
+                        <a href="makeAdmin.php"><i class="fas fa-user-circle"></i>Make Admin</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
 
       <div class="container" style="margin-top:150px;">
         <div class="row justify-content-center">

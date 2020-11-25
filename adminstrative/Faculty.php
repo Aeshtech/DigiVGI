@@ -22,10 +22,12 @@
 
     <?php 
     $username = $_SESSION['username_admin'];
-    $sql = "SELECT `photo` FROM `admin` WHERE `email`='$username'";
+    $sql = "SELECT `photo`,`course`,`branch` FROM `admin` WHERE `email`='$username'";
     $rslt = mysqli_query($conn,$sql);
     $pro = mysqli_fetch_assoc($rslt);
     $profile = $pro['photo'];
+    $admin_course = $pro['course'];
+    $admin_branch = $pro['branch'];
 
     ?>
     <!-- ===============Navigation Bar========================== -->
@@ -42,7 +44,7 @@
             <div class="dropdown">
                 <div class="profile"><img src="<?=$profile;?>"></div>
                 <div class="dropdown-content">
-                  <form action="logout.php" method="POST">
+                  <form action="../logout.php" method="POST">
                       <a><i class="fas fa-sign-out-alt"></i><input type="submit" name="signoutBtn" value="Log-out" style="color: var(--primary);"></input></a>
                   </form>
                   <a href="adminProfile.php"><i class="fas fa-user-circle"></i>Profile</a>
@@ -100,6 +102,8 @@
             <th>Photo</th>
             <th>Full Name</th>
             <th>Contact No</th>
+            <th>Course</th>
+            <th>Branch</th>
             <th>Gender</th>
             <th>Email</th>
             <!-- <th>Password</th> -->
@@ -109,7 +113,7 @@
       <tbody>
 
         <?php
-          $sql = "select * from faculty";
+          $sql = "SELECT * FROM `faculty` WHERE `course`='$admin_course' AND `branch`='$admin_branch'";
           $result = mysqli_query($conn, $sql);  
         	if(mysqli_num_rows($result)>0){     // mysqli_num_rows() return total count of rows!
           		while($row = mysqli_fetch_assoc($result)){
@@ -118,6 +122,8 @@
           <td><img src="<?php echo $row['photo'] ?>" style="width: 40px;height: 40px;border-radius: 50%;border: 2px solid var(--primary);"></td>
           <td><?php echo $row['name'] ?></td>
           <td><?php echo $row['phone'] ?></td>
+          <td><?php echo $row['course'] ?></td>
+          <td><?php echo $row['branch'] ?></td>
           <td><?php echo $row['gender'] ?></td>
           <td><?php echo $row['email'] ?></td>
           <!-- <td><?php echo $row['password'] ?></td> -->

@@ -24,10 +24,12 @@
 
     <?php 
     $username = $_SESSION['username_admin'];
-    $sql = "SELECT `photo` FROM `admin` WHERE `email`='$username'";
+    $sql = "SELECT `photo`,`course`,`branch` FROM `admin` WHERE `email`='$username'";
     $rslt = mysqli_query($conn,$sql);
     $pro = mysqli_fetch_assoc($rslt);
     $profile = $pro['photo'];
+    $admin_course =$pro['course'];
+    $admin_branch =$pro['branch'];
 
     ?>
     <!-- ===============Navigation Bar========================== -->
@@ -44,7 +46,7 @@
             <div class="dropdown">
                 <div class="profile"><img src="<?=$profile;?>"></div>
                 <div class="dropdown-content">
-                  <form action="logout.php" method="POST">
+                  <form action="../logout.php" method="POST">
                       <a><i class="fas fa-sign-out-alt"></i><input type="submit" name="signoutBtn" value="Log-out" style="color: var(--primary);"></input></a>
                   </form>
                   <a href="adminProfile.php"><i class="fas fa-user-circle"></i>Profile</a>
@@ -113,7 +115,7 @@
                 </thead>
                 <tbody>
                     <?php
-                    $sql = "select * from assignfaculty";
+                    $sql = "SELECT * FROM `assignfaculty` WHERE `course`='$admin_course' AND `branch`='$admin_branch'";
                     $result = mysqli_query($conn, $sql); 
                     if(mysqli_num_rows($result)>0){               // mysqli_num_rows() return total count of rows!
                         while($row = mysqli_fetch_assoc($result)){
@@ -149,7 +151,7 @@
             <form action="action4.php" method="post" autocomplete="off">
                 <div>
                     <input type="hidden" name="id" value="<?= $id;?>">
-                    <label>Course:</label>
+                    <!-- <label>Course:</label>
                     <select name="course" required id="course">
                         <option value='' selected disabled>select</option>
                         <option value="B.Tech" <?php if($course=='B.Tech'){echo "selected";} ?>> B.Tech </option>
@@ -174,7 +176,7 @@
                         <option value="ME" <?php if($branch=='ME'){echo "selected";} ?>>Mechanical Engg.</option>
                         <option value="CIVIL" <?php if($branch=='CIVIL'){echo "selected";} ?>>Civil Engg.</option>
                     </select>
-                </div>
+                </div> -->
                 <div>
                     <label>Semester:</label>
                     <select name="semester" id="semester" required>
@@ -222,6 +224,13 @@
                     <label>Subject Code confirm:</label>
                     <input type="text" name="confirm_sub_code" required  placeholder="-----Confirm subject code----"
                         value="<?= $subjectcode;?>">
+                </div>
+                <div>
+                    <label>C-Permit (Attendance Update Permit):</label>
+                    <select name="c-permit" required style="width:70px;height:25px;border-radius:5px;">
+                        <option value='no' selected <?php if($cpermit=='no'){echo "selected";} ?>>NO</option>
+                        <option value="yes" <?php if($cpermit=='yes'){echo "selected";} ?>>Yes</option>
+                    </select>
                 </div>
                 <div>
                     <?php if($update==true){ ?>
