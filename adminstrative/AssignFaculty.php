@@ -227,9 +227,9 @@
                 </div>
                 <div>
                     <label>C-Permit (Attendance Update Permit):</label>
-                    <select name="c-permit" required style="width:70px;height:25px;border-radius:5px;">
-                        <option value='no' selected <?php if($cpermit=='no'){echo "selected";} ?>>NO</option>
-                        <option value="yes" <?php if($cpermit=='yes'){echo "selected";} ?>>Yes</option>
+                    <select name="cpermit" required style="width:70px;height:25px;border-radius:5px;">
+                        <option value='NO' selected <?php if($cpermit=='NO'){echo "selected";} ?>>NO</option>
+                        <option value="Yes" <?php if($cpermit=='Yes'){echo "selected";} ?>>Yes</option>
                     </select>
                 </div>
                 <div>

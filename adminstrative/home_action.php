@@ -97,9 +97,6 @@ if(isset($_POST['view-based-on-subject'])){
     $section = $_POST['section'];
     $startdate = $_POST['startdate'];
     $lastdate = $_POST['lastdate'];
-    
-    $query = "SELECT `status`,`roll_no`,`student_name`,`date` FROM `attendance` WHERE `subject_name`='$subjectname' AND `course`='$admin_course' AND `branch`='$admin_branch' AND `semester`='$semester' AND `section`='$section' AND `date` BETWEEN '$startdate' AND '$lastdate' ORDER BY `date`";
-    $result = mysqli_query($conn,$query);
 
     // <!-- Fetching distinct date   -->
     $query1= "SELECT DISTINCT `date` FROM `attendance` WHERE `subject_name`='$subjectname' AND `course`='$admin_course' AND `branch`='$admin_branch' AND `semester`='$semester' AND `section`='$section' AND `date` BETWEEN '$startdate' AND '$lastdate' ORDER BY `date`";

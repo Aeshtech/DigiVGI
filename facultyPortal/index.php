@@ -55,6 +55,7 @@ if(mysqli_num_rows($result)>0){
                 <input type="hidden" name="section" value="<?php echo $row['section']?>">
                 <input type="hidden" name="subjectname" value="<?php echo $row['subjectname']?>">
                 <input type="hidden" name="subjectcode" value="<?php echo $row['subjectcode']?>">
+                <input type="hidden" name="cpermit" value="<?php echo $row['cpermit']?>">
 
                 <input type="date" name="date" min="2020-08-11" max="<?php  echo date("Y-m-d"); ?>"
                     value="<?php  echo date("Y-m-d"); ?>" required><br>

@@ -32,13 +32,14 @@ if(isset($_POST['submit'])){
     $section = $_POST['section'];
     $subjectname = $_POST['subjectname'];
     $subjectcode = $_POST['subjectcode'];
+    $cpermit = $_POST['cpermit'];
     $date = $_POST['date'];
 }?>
 
 
 
 
-    <?php
+<?php
 $sql = "SELECT * FROM `attendance` where `subject_code`= '$subjectcode' AND `course`='$course' AND `branch`='$branch' AND `semester`='$semester' AND `section`='$section' AND `date`= '$date' ";
 $sql_result = mysqli_query($conn,$sql);
 if(mysqli_num_rows($sql_result)>0){
@@ -51,6 +52,11 @@ if(mysqli_num_rows($sql_result)>0){
         <b><?php echo $semester ?></b>
         <b><?php echo $section ?></b>
     </div>
+
+    <?php 
+    if($cpermit=='Yes'){
+    ?>
+
     <marquee style="color:red;behavior:scroll;font-size:10px;display:block;">Note:Please do not refresh page before click on save,
             it may lost your current record!!</marquee>
     <div id="grid-container-aesh">
@@ -104,7 +110,14 @@ if(mysqli_num_rows($result)>0){?>
         </form>
     </div>
 
-    <?php }else{?>
+    <?php
+    }else{
+        echo "<h1 style='margin-left:35%;color:blue;'>Sorry:-/</h1><br>
+        <strong style='color:red;margin-left:20px;'>You don't have C-Permit for this subject to change previous record!</strong>
+        <br><b><a href='index.php'>Go Back</a>";
+    }
+}
+ else{?>
 
     <div id="grid-container-aesh">
         <form action="action_ashish.php" method="POST">

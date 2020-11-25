@@ -35,6 +35,7 @@ if(isset($_POST['submit'])){
     $subjectname = trim($_POST['subjectname']);
     $subjectcode = trim($_POST['subjectcode']);
     $confirm_sub_code = trim($_POST['confirm_sub_code']);
+    $cpermit = $_POST['cpermit'];
 
     if(isset($facultyid) && ($facultyid=="")){
 		$_SESSION['error'] = "Faculty Id should not be empty!!";
@@ -52,7 +53,7 @@ if(isset($_POST['submit'])){
         $_SESSION['error'] = "Subject code confirmation doesn't match!";
 		header('location:assignFaculty.php');
     }else{
-        $query = "INSERT INTO `assignfaculty`(`course`,`branch`,`semester`,`section`,`facultyname`,`facultyid`,`subjectname`,`subjectcode`)VALUES('$admin_course','$admin_branch','$semester','$section','$facultyname','$facultyid','$subjectname','$confirm_sub_code')";
+        $query = "INSERT INTO `assignfaculty`(`course`,`branch`,`semester`,`section`,`facultyname`,`facultyid`,`subjectname`,`subjectcode`,`cpermit`)VALUES('$admin_course','$admin_branch','$semester','$section','$facultyname','$facultyid','$subjectname','$confirm_sub_code','$cpermit')";
         if(mysqli_query($conn,$query)){
             $_SESSION['status'] = 'Successfully inserted!';
             header('location:assignfaculty.php');
@@ -91,6 +92,7 @@ if($numRows==1){
     $facultyid = $row['facultyid'];
     $subjectname = $row['subjectname'];
     $subjectcode = $row['subjectcode'];
+    $cpermit = $row['cpermit'];
     $update=true;
 }
 }
@@ -109,6 +111,7 @@ if(isset($_POST['update'])){
     $subjectname = trim($_POST['subjectname']);
     $subjectcode = trim($_POST['subjectcode']);
     $confirm_sub_code = trim($_POST['confirm_sub_code']);
+    $cpermit = $_POST['cpermit'];
 
     if(isset($facultyid) && ($facultyid=="")){
 		$_SESSION['error'] = "Faculty Id should not be empty!!";
@@ -126,7 +129,7 @@ if(isset($_POST['update'])){
         $_SESSION['error'] = "Subject code confirmation doesn't match!";
 		header('location:assignFaculty.php');
     }else{
-        $query = "UPDATE `assignfaculty` set `semester`='$semester', `section`='$section',`facultyname`='$facultyname',`facultyid`='$facultyid', `subjectname`='$subjectname', `subjectcode`='$confirm_sub_code' WHERE `id`='$id'";
+        $query = "UPDATE `assignfaculty` set `semester`='$semester', `section`='$section',`facultyname`='$facultyname',`facultyid`='$facultyid', `subjectname`='$subjectname', `subjectcode`='$confirm_sub_code',`cpermit`='$cpermit' WHERE `id`='$id'";
         $result= mysqli_query($conn,$query);
         if(mysqli_affected_rows($conn)==1){
             $_SESSION['status'] = 'Successfully Updated !';
