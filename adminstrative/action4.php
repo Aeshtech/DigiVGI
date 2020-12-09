@@ -39,44 +39,37 @@ if(isset($_POST['submit'])){
 
     if(isset($facultyid) && ($facultyid=="")){
 		$_SESSION['error'] = "Faculty Id should not be empty!!";
-		header('location:assignFaculty.php');
 	}else if(filter_var($facultyid,FILTER_VALIDATE_EMAIL) != TRUE){
 		$_SESSION['error'] = 'Please enter valid email address!';
-		header('location:assignFaculty.php');
 	}else if($subjectcode==""){
         $_SESSION['error'] = 'Subject code should not be empty!';
-		header('location:assignFaculty.php');
     }else if($confirm_sub_code==""){
         $_SESSION['error'] = 'Subject code confirmation should not be empty!';
-		header('location:assignFaculty.php');
     }else if($subjectcode != $confirm_sub_code){
         $_SESSION['error'] = "Subject code confirmation doesn't match!";
-		header('location:assignFaculty.php');
     }else{
         $query = "INSERT INTO `assignfaculty`(`course`,`branch`,`semester`,`section`,`facultyname`,`facultyid`,`subjectname`,`subjectcode`,`cpermit`)VALUES('$admin_course','$admin_branch','$semester','$section','$facultyname','$facultyid','$subjectname','$confirm_sub_code','$cpermit')";
         if(mysqli_query($conn,$query)){
             $_SESSION['status'] = 'Successfully inserted!';
-            header('location:assignfaculty.php');
         }
     }
 }
 
 /*------------For deleting record from database--------- */
-if(isset($_GET['delete'])){
-	$id = $_GET['delete'];
+if(isset($_POST['delete'])){
+	$id = $_POST['delete'];
     $sql = "delete from assignfaculty where id =".$id;
     $result = mysqli_query($conn, $sql);
     if($result){
         $_SESSION['status'] = 'Successfully Deleted!';
-        header('location:assignfaculty.php');
     }
 }
 
 
 /*-------------------------------- updating record-------------------------  */
 
-if(isset($_GET['id'])){
-	$id = $_GET['id'];
+if(isset($_POST['update_id'])){
+	$id = $_POST['id'];
 	
 
 // fetching record from db based on id and assigining below into variables which is working as value for 'form' in assignfaculty.php!

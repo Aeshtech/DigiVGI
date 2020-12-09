@@ -33,22 +33,49 @@ $spreadsheet->getDefaultStyle()
 
 require('../adminstrative/config.php');
 $username = $_SESSION['username_admin'];
-$sql = "SELECT `photo`,`course`,`branch` FROM `admin` WHERE `email`='$username'";
+$sql = "SELECT `course`,`branch` FROM `admin` WHERE `email`='$username'";
 $rslt = mysqli_query($conn,$sql);
 $pro = mysqli_fetch_assoc($rslt);
-$profile = $pro['photo'];
 $admin_course =$pro['course'];
 $admin_branch =$pro['branch'];
 
 if(isset($_POST['export_attendance'])){
     $subjectname = $_POST['subjectname'];
-    // $course = $_POST['course'];
-    // $branch = $_POST['branch'];
     $semester = $_POST['semester'];
     $section = $_POST['section'];
     $startdate = $_POST['startdate'];
     $lastdate = $_POST['lastdate'];
 }   
+
+
+
+$spreadsheet->getActiveSheet()
+            ->setCellValue("B1","DigiVGI")
+            ->setCellValue("D1","Powered By")
+            ->setCellValue("F1","AeshTech")
+
+            ->setCellValue("A3","Course-")
+            ->setCellValue("B3",$admin_course)
+            ->setCellValue("C3","Subject Name-")
+            ->setCellValue("D3",$subjectname)
+
+            ->setCellValue("A4","Branch-")
+            ->setCellValue("B4",$admin_branch)
+            ->setCellValue("C4","Semester-")
+            ->setCellValue("D4",$semester)
+            ->setCellValue("E4","Section-")
+            ->setCellValue("F4",$section)
+
+            ->setCellValue("A5","Start Date-")
+            ->setCellValue("B5",$startdate)
+            ->setCellValue("C5","End Date-")
+            ->setCellValue("D5",$lastdate);
+
+
+$spreadsheet->getActiveSheet()->getStyle('A1:G1')->getFill()->setFillType(PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('ffff00');
+$spreadsheet->getActiveSheet()->getStyle('A1:G1')->getFont()->setSize(14);
+$spreadsheet->getActiveSheet()->getStyle('A1:G1')->getFont()->setBold(true);
+
 
 // Fetching distinct date and set in spreadsheet on x axis 
 $query1= "SELECT DISTINCT `date` FROM `attendance` WHERE `subject_name`='$subjectname' AND `course`='$admin_course' AND `branch`='$admin_branch' AND `semester`='$semester' AND `section`='$section' AND `date` BETWEEN '$startdate' AND '$lastdate' ORDER BY `date`";
@@ -71,9 +98,15 @@ while($t<=$total_columns){
 $y='C';
 while($row1=mysqli_fetch_object($result1)){
     $spreadsheet->getActiveSheet()
-    ->setCellValue($y.'1', $row1->date);
+    ->setCellValue($y.'7', $row1->date);
     $y++;
 }
+
+$spreadsheet->getActiveSheet()->setCellValue($y.'7','Each Student Status');
+//this will set style bold of row 7. 
+$spreadsheet->getActiveSheet()->getStyle('A7:'.$y.'7')->getFont()->setBold(true);
+
+
 
 // Fetching roll_no and student_name for to set these on y-axis i.e left most columns.
 $query2 = "SELECT DISTINCT `roll_no`,`student_name` FROM `attendance` WHERE `subject_name`='$subjectname' AND `course`='$admin_course' AND `branch`='$admin_branch' AND `semester`='$semester' AND `section`='$section' AND `date` BETWEEN '$startdate' AND '$lastdate' ORDER BY `roll_no`,`student_name`,`date`";
@@ -83,7 +116,7 @@ $total_students_count = mysqli_num_rows($result3);
 
 
 // this loop set total fetched students roll_no & names values in left most coloumns..!!
-$x=2;
+$x=8;
 while($row3=mysqli_fetch_object($result3)){
     $spreadsheet->getActiveSheet()
     ->setCellValue('A'.$x, $row3->roll_no)
@@ -109,7 +142,7 @@ while($j<$total_date_count){
 }
 
 $index=0;                                         //$index variable will iterate in $array in inner loop and will not reset like $j and $k. 
-$i=2;                                             //$i variable will use to iterate outer loop.
+$i=8;                                             //$i variable will use to iterate outer loop.
 while($row2=mysqli_fetch_object($result4)){       // **outer loop should run till total no of students
     $j='1';                                      //$j varable will only use for run inner loop as less than = total no of date.
     $k='C';                                      // $k variable will use for iterate alphabet coordinate in spreadsheet.
@@ -126,37 +159,46 @@ while($row2=mysqli_fetch_object($result4)){       // **outer loop should run til
 
 
 //for making default coordiantes to get total no of 'present' date wise i.e coloumn wise.
-$cordq= $total_students_count+2; 
-$cordr= $total_students_count+1; 
+$cordq= $total_students_count+8; 
+$cordr= $total_students_count+7; 
 
 
 //this loop will run till no of dates and set the total 'Present' in each date on very last row.  
 $a='1';
 $b='C';
 while($a<=$total_date_count){
-    $spreadsheet->getActiveSheet()->setCellValue($b.$cordq,"=COUNTIF(".$b."2:".$b.$cordr.',"Present")');
+    $spreadsheet->getActiveSheet()->setCellValue($b.$cordq,"=COUNTIF(".$b."8:".$b.$cordr.',"Present")');
     $a++;
     $b++;
 }
 
 
+$spreadsheet->getActiveSheet()
+            ->setCellValue('A7',"Stu. Roll No")
+            ->setCellValue('B7',"Stu. Name")
+            ->setCellValue('A'.$cordq,"Total Present")
+            ->setCellValue('B'.$cordq,"On Each Date");
 
-$conditional1 = new \PhpOffice\PhpSpreadsheet\Style\Conditional();
-$conditional1->setConditionType(\PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_CONTAINSTEXT);
-$conditional1->addCondition("Present");
-$conditional1->getStyle()->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_GREEN);
-$conditional1->getStyle()->getFont()->setBold(true);
 
-$conditional2 = new \PhpOffice\PhpSpreadsheet\Style\Conditional();
-$conditional2->setConditionType(\PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_CONTAINSTEXT);
-$conditional2->addCondition("Absent");
-$conditional2->getStyle()->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_RED);
-$conditional2->getStyle()->getFont()->setBold(true);
 
-$conditionalStyles = $spreadsheet->getActiveSheet()->getStyle("C2")->getConditionalStyles();
-$conditionalStyles[] = $conditional1;
-$conditionalStyles[] = $conditional2;
-$spreadsheet->getActiveSheet()->getStyle('C2')->setConditionalStyles($conditionalStyles);
+// ===========================================================================================================
+
+// $conditional1 = new PhpOffice\PhpSpreadsheet\Style\Conditional();
+// $conditional1->setConditionType(PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_CONTAINSTEXT);
+// $conditional1->addCondition("Present");
+// $conditional1->getStyle()->getFont()->getColor()->setARGB(PhpOffice\PhpSpreadsheet\Style\Color::COLOR_GREEN);
+// $conditional1->getStyle()->getFont()->setBold(true);
+
+// $conditional2 = new PhpOffice\PhpSpreadsheet\Style\Conditional();
+// $conditional2->setConditionType(PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_CONTAINSTEXT);
+// $conditional2->addCondition("Absent");
+// $conditional2->getStyle()->getFont()->getColor()->setARGB(PhpOffice\PhpSpreadsheet\Style\Color::COLOR_RED);
+// $conditional2->getStyle()->getFont()->setBold(true);
+
+// $conditionalStyles = $spreadsheet->getActiveSheet()->getStyle("C8")->getConditionalStyles();
+// $conditionalStyles[] = $conditional1;
+// $conditionalStyles[] = $conditional2;
+// $spreadsheet->getActiveSheet()->getStyle('C8')->setConditionalStyles($conditionalStyles);
 
 
 

@@ -1,7 +1,7 @@
 <!-- ===================================================================JAI SHREE KRISHNA=================================================== -->
 <?php
   require('config.php');
-  require('action.php');
+  // require('action.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -106,7 +106,6 @@
             <th>Branch</th>
             <th>Gender</th>
             <th>Email</th>
-            <!-- <th>Password</th> -->
             <th>Action</th>
         </tr>
       </thead>

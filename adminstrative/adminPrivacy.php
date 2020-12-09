@@ -9,25 +9,33 @@ require("adminPrivacyAction.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Profile</title>
     <link rel="stylesheet" href="styles/V2.css">
+    <style>
+        .update_profile{
+            margin-top: 10vh;
+        }
+        .update_profile input{
+            width: 35%;
+        }
+    </style>
 </head>
 <body>
 
 <!-- ==============================DigiVGI-Header================= -->
 <header>
     <div class="logodiv">
-        <!-- <a><img src="vgi-logo.jpg" id="logo"></a> -->
+        <a><img src="vgi-logo.jpg" id="logo"></a>
         <h1>Digi VGI</h1>
     </div>
 </header>
 
-<body class="profile_bg">
+<body>
 
     <div class="update_profile">
-        <button onclick="goBack()">Go Back</button>
+        <a class="back_btn" href="index.php">Go Back</a>
         <?php
             if(isset($_SESSION['success'])&& $_SESSION['success'] !='')
             {
-            echo '<span style="background:yellow;color:var(--primary);">'.$_SESSION['success'].'</span>';
+            echo '<span style="background:greenyellow;color:black;">'.$_SESSION['success'].'</span>';
                 unset($_SESSION['success']);
             }
             ?>
@@ -38,7 +46,7 @@ require("adminPrivacyAction.php");
                 <h1>***Change Password***</h1>
             </div>
             <div class="update_privacy">
-            <input type="Password" name="newPassword" placeholder="-------Enter New Password------"><br>
+            <input type="Password" name="newPassword" placeholder="-------Enter New Password------" required><br>
 
             <?php
             if(isset($_SESSION['pwdErr'])&& $_SESSION['pwdErr'] !='')
@@ -48,7 +56,7 @@ require("adminPrivacyAction.php");
             }
             ?><br>
 
-            <input type="Password" name="confirmPassword" placeholder="-------Confirm New Password------"><br>
+            <input type="Password" name="confirmPassword" placeholder="-------Confirm New Password------" required><br>
 
             <?php
             if(isset($_SESSION['confirmPwdErr'])&& $_SESSION['confirmPwdErr'] !='')
@@ -64,14 +72,5 @@ require("adminPrivacyAction.php");
         </form>
     </div>
     
-
-   
-
-    <script>
-
-    function goBack(){
-        window.history.back();
-    }
-    </script>
     </body>
 </html>

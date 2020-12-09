@@ -1,5 +1,4 @@
 /* ---------------------------------------------------*** JAI SHREE KRISHNA ***---------------------------------------- */
-/* @import url('https://fonts.gooleapis.com?familty=Poppins:400,500,600') */
 
 /* ===========================Overlay Menu Nav Bar============================== */
 
@@ -284,14 +283,14 @@
     display: grid;
     background:whitesmoke;
     grid-template-columns: auto;
-    margin-bottom:5vh;
+    min-height: 83vh;
     Padding: 10px;  
 }
 
 #grid-item{
     position: relative;
     background:var(--theme);
-    height: 35vh;
+    height: 33vh;
     margin: 10px;
     padding: 10px;
     text-align: center;
@@ -301,10 +300,12 @@
     color:white;
     background:rgba(137, 43, 226, 0.973);
     border-radius: 20px;
+    overflow: hidden;
+    height: 5vh;
+    padding: 5px;
+    word-break: break-all;
 }
-.subject-name h2{
-    display: inline;
-}
+
 .subject-code{
     color: white;
     position: absolute;
@@ -315,15 +316,13 @@
 }
 input[type="date"]{
     padding: 10px;
-    margin-top: 10px;
+    margin-top: 15px;
     margin-bottom: 10px;
-    font-size: 18px;
-    background:blueviolet;
+    font-size: 23px;
     outline: none;
     border:none;
     border-radius: 10px;
-    color: white;
-    width: 60%;
+    width: 65%;
     height: 31px;
 }
 input[type="date"]:hover{
@@ -347,7 +346,7 @@ input[type="date"]:hover{
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    top: 50%;
+    top: 45%;
     font-size:20px;
     color: white;
     background: blueviolet;
@@ -366,6 +365,7 @@ input[type="date"]:hover{
 
 @media (min-width:620px){
     #grid-container{
+        min-height: 75vh;
         grid-template-columns: 33.33% 33.33% 33.33%;
         padding: 20px;
     }
@@ -477,6 +477,7 @@ input[type="date"]:hover{
 #grid-item-aesh{
     position: relative;
     background:var(--theme);
+    height: 14vh;
     margin: 10px;
     padding: 10px;
     text-align: center;
@@ -494,6 +495,7 @@ input[type="date"]:hover{
     border-radius: 20px;
     padding: 5px;
     margin: 10px 20px;
+    margin-bottom:5vh;
 }
 .subject_name h2{
     color: yellow;
@@ -529,7 +531,7 @@ input[type="date"]:hover{
 }
 .status-label1{
     float: left;
-    margin: 10px 5px 5px 40px;
+    margin: 10px 5px 5px 10px;
 }
 
 .status-label2{
@@ -541,7 +543,8 @@ input[type="date"]:hover{
     padding: 5px 10px;
     border: 2px solid chartreuse;
     border-radius: 15px;
-
+    position: absolute;
+    top: 9vh;
 }
 .status-label1 input[type="radio"]:checked + strong{
     background: chartreuse;
@@ -552,17 +555,27 @@ input[type="date"]:hover{
     padding: 5px 10px;
     border: 2px solid red;
     border-radius: 15px;
+    position: absolute;
+    top: 9vh;
+    right: 10px;
 }
 .status-label2 input[type="radio"]:checked + strong{
     background: red;
     color: white;
 }
 
-
+#selectall{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 19vh;
+    width: 20px;
+    height: 20px;
+}
 .save_attendance{
     position: fixed;
     bottom: 2%;
-    right: 10px;
+    right: 35%;
     padding: 10px 15px;
     border:2px ridge black;
     outline: none;
@@ -657,8 +670,14 @@ tbody tr:nth-child(even){
     font-weight:bold;
     font-size: 16px;
 }
+.update_profile img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 2px solid white;
+}
 .update_profile input{
-    width: 60%;
+    width: 70%;
     font-size: 17px;
     color: white;
     padding: 10px;
@@ -669,7 +688,7 @@ tbody tr:nth-child(even){
     background: none;
 }
 .update_profile select{
-    width: 60%;
+    width: 70%;
     font-size: 16px;
     color:black;
     padding: 10px;
@@ -693,17 +712,35 @@ tbody tr:nth-child(even){
     color:black;
 }
 
-.update_profile button{
+.update_profile .back_btn{
     position: fixed;
     left: 10px;
     font-weight: bold;
-    padding: 5px;
+    font-size: medium;
+    padding: 7px;
     border: none;
-    border-radius: 10px;
+    border-radius: 5px;
     outline: none;
     color:blueviolet;
-    background:whitesmoke;
+    background:white;
 }
+
+@media (min-width:620px){
+    .update_profile input{
+        width: 35%;
+    }
+    .update_profile input[type="submit"]{
+        width: 15%;
+    }
+    .update_profile .back_btn{
+        left: 10em;
+        top: 20vh;
+    }
+    .update_profile select{
+        width: 35%;
+    }
+}
+
 
 /* =============================================STUDENT PORTAL========================================= */
 #grid-item .heart{
@@ -788,11 +825,8 @@ tbody tr:nth-child(even){
 
 /*=================footer============*/
   .footer{
-      margin-top: 1vh;
-      position: fixed;
-      bottom: 0;
       background: var(--theme);
-      height:6vh;
+      height:10vh;
       width: 100%;
       text-align: center;
       font-size:14px;

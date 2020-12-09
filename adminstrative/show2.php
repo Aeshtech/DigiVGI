@@ -8,8 +8,8 @@ if(!$_SESSION['username_admin'])
   require_once('config.php');
   $upload = 'uploads/';
 
-  if (isset($_GET['id'])) {
-    $id = $_GET['id'];
+  if(isset($_POST['id'])) {
+    $id = $_POST['id'];
     $sql = "select * from student where id =".$id;
     $result = mysqli_query($conn, $sql);
     if (mysqli_num_rows($result) > 0) {
@@ -54,7 +54,6 @@ if(!$_SESSION['username_admin'])
         <!-- ===============Navigation Bar========================== -->
         <div class="topnav" id="myTopnav">
             <a href="index.php">Home</a>
-            <a href="Faculty.php" >Faculty</a>
             <a href="Student.php" class="active">Student</a>
             <a href="AssignFaculty.php">Assign Faculty</a>
             <a href="About.php">About us</a>

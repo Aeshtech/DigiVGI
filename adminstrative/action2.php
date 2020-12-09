@@ -96,8 +96,8 @@ if(isset($_POST['submit'])){
 }
 
 /*------------For deleting record from database--------- */
-if(isset($_GET['delete'])){
-	$id = $_GET['delete'];
+if(isset($_POST['delete'])){
+	$id = $_GET['id'];
 	// this will remove photo from uploads directory also...!
 	$sql = "select photo from student where id = ".$id;
 	$result = mysqli_query($conn, $sql);
@@ -117,8 +117,8 @@ if(isset($_GET['delete'])){
 
 /*-------------------------For update record---------------------- */
 
-  if(isset($_GET['id'])){
-	$id = $_GET['id'];
+  if(isset($_POST['update_id'])){
+	$id = $_POST['id'];
 	
 	// fetching record from db based on id and assigining below into variables which is working as value for 'form' in student.php!
     $query = "SELECT * FROM student WHERE id =?";

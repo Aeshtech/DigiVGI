@@ -15,7 +15,7 @@ require("studentPrivacyAction.php");
 <div class="navBottom"></div>
 
     <div class="update_profile" style="margin-top: 5%;">
-    <button onclick="goBack()">Back</button>
+    <a href="index.php" class="back_btn">Back</a>
 
         <form method="POST" action="studentPrivacyAction.php" autocomplete="off" >
             <div class="label" style="margin:10px auto 35px;">
@@ -64,12 +64,5 @@ require("studentPrivacyAction.php");
     
 
    
-
-    <script>
-
-    function goBack(){
-        window.history.back();
-    }
-    </script>
 </body>
 </html>

@@ -18,11 +18,29 @@ if(isset($_POST['view_attendance'])){
         $section = $_POST['section'][$key];
         $startdate = $_POST['startdate'][$key];
         $enddate = $_POST['enddate'][$key];
-
-        $query = "SELECT `status`,`roll_no`,`student_name`,`date` FROM `attendance` WHERE `subject_code`='$subject_code' AND `course`='$course' AND `branch`='$branch' AND `semester`='$semester' AND `section`='$section' AND `date` BETWEEN '$startdate' AND '$enddate' ORDER BY `date`";
-        $result = mysqli_query($conn,$query);
         
     }
+
+    // <!-- Fetching distinct date   -->
+    $query1= "SELECT DISTINCT `date` FROM `attendance` WHERE `subject_name`='$subject_name' AND `course`='$course' AND `branch`='$branch' AND `semester`='$semester' AND `section`='$section' AND `date` BETWEEN '$startdate' AND '$enddate' ORDER BY `date`";
+    $result1 = mysqli_query($conn,$query1);
+    $total_date_count = mysqli_num_rows($result1);
+
+
+    // Fetching roll_no and student_name for to set these on y-axis i.e left most columns.
+    $query2 = "SELECT DISTINCT `roll_no`,`student_name` FROM `attendance` WHERE `subject_name`='$subject_name' AND `course`='$course' AND `branch`='$branch' AND `semester`='$semester' AND `section`='$section' AND `date` BETWEEN '$startdate' AND '$enddate' ORDER BY `roll_no`,`student_name`,`date`";
+    $result2 = mysqli_query($conn,$query2);
+
+    
+    // Fetching status and set the status of each students corrosponding to date. 
+    $query3 = "SELECT `status` FROM `attendance` WHERE `subject_name`='$subject_name' AND `course`='$course' AND `branch`='$branch' AND `semester`='$semester' AND `section`='$section' AND `date` BETWEEN '$startdate' AND '$enddate' ORDER BY `roll_no`,`student_name`,`date`";
+    $result3 = mysqli_query($conn,$query3);
+
+    $j=0;
+    while($row3=mysqli_fetch_assoc($result3)){
+        $arr[] = $row3['status'];
+        $j++;
+}
 }
 ?>
 
@@ -50,30 +68,39 @@ if(isset($_POST['view_attendance'])){
                 <table class="view_attendance">
                     <thead>
                         <tr>
-                            <th>Date</th>
-                            <th>Status</th>
-                            <th>Name</th>
-                            <th>Roll No</th>
+                        <th>Roll No</th>
+                            <th>Student Name</th>
+                            <?php
+                            if(mysqli_num_rows($result1)>0){
+                                while($row1 = mysqli_fetch_assoc($result1)){?>
+                                <th><?=$row1['date']?></th>
+                            <?php
+                            }
+                            }?>
                         </tr>
                     </thead>
                     <tbody>
-                        <?Php
-
-    if(mysqli_num_rows($result)>0){
-        while($row = mysqli_fetch_assoc($result)){?>
+                    <?Php
+                        $j=0;
+                        if(mysqli_num_rows($result2)>0){
+                            while($row2 = mysqli_fetch_assoc($result2)){?>
                         <tr>
-                            <td><?php echo $row['date'];?></td>
-                            <td><?php echo $row['status'];?></td>
-                            <td><?php echo $row['student_name'];?></td>
-                            <td><?php echo $row['roll_no'];?></td>
+                            <td><?= $row2['roll_no'];?></td>
+                            <td><?= $row2['student_name'];?></td>
+                            <?php
+                                $i=0;
+                                while($i<$total_date_count){?>
+                                <td><?= $arr[$j] ?></td>
+                                <?php
+                                $j++;
+                                $i++;
+                            }?>
                         </tr>
                         <?php
-             }
-        }else{
-            echo "No record was found!!";
-        }
-?>
-                    </tbody>
+                        }
+                    }else{
+                        echo "No record was found!!";}?>
+                </tbody>
                 </table>
             </div>
 </body>

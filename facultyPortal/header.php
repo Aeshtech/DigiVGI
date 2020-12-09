@@ -29,7 +29,7 @@
     </div>
     <header class="header">
         <div class="dropdown">
-            <div class="profile"><img src="../adminstrative/<?php echo $row['photo']; ?>" alt="Not Found"></div>
+            <div class="profile"><img src="../directorPortal/<?php echo $row['photo']; ?>" alt="Not Found"></div>
             <div class="dropdown-content">
                 <a><i class="fas fa-user-circle"></i><?php echo $row['name']; ?></a>
                 <a><i class="fas fa-envelope"></i><?php echo $email; ?></a>

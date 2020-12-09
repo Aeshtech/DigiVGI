@@ -12,7 +12,7 @@
     ?>
 
     <div class="logo-for-lap">
-        <h1>DigiVgi</h1>
+        <h1>DigiVGI</h1>
         <img src="..\adminstrative\vgi-logo.jpg" alt="Not Found">
     </div>
     <header class="header">
@@ -28,7 +28,7 @@
             </div>
         </div>
         <div class="logo">
-            <h2>DigiVgi</h2>
+            <h2>DigiVGI</h2>
             <img src="..\adminstrative\vgi-logo.jpg">
         </div>
 

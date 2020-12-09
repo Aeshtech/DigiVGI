@@ -13,7 +13,8 @@ if(isset($_POST['signoutBtn'])){
     mysqli_multi_query($conn,$sql); 
 
     
-    session_destroy();
+    session_destroy();    
+    unset($_SESSION['username_director']);
     unset($_SESSION['username_admin']);
     unset($_SESSION['username_faculty']);
     unset($_SESSION['username_student']);

@@ -39,28 +39,30 @@ if(isset($_POST['submit'])){
 
 
 
-<?php
+    <?php
 $sql = "SELECT * FROM `attendance` where `subject_code`= '$subjectcode' AND `course`='$course' AND `branch`='$branch' AND `semester`='$semester' AND `section`='$section' AND `date`= '$date' ";
 $sql_result = mysqli_query($conn,$sql);
 if(mysqli_num_rows($sql_result)>0){
-    ?>
-
-    <div class="subject_name">
-        <h2><?php echo $subjectname?></h2>
-        <b><?php echo $course ?></b>
-        <b><?php echo $branch ?></b>
-        <b><?php echo $semester ?></b>
-        <b><?php echo $section ?></b>
-    </div>
+?>
 
     <?php 
     if($cpermit=='Yes'){
     ?>
 
-    <marquee style="color:red;behavior:scroll;font-size:10px;display:block;">Note:Please do not refresh page before click on save,
-            it may lost your current record!!</marquee>
+
     <div id="grid-container-aesh">
         <form action="action_ashish.php" method="POST">
+
+            <div class="subject_name">
+                <h2><?php echo $subjectname?></h2>
+                <b><?php echo $course ?></b>
+                <b><?php echo $branch ?></b>
+                <b><?php echo $semester ?></b>
+                <b><?php echo $section ?></b>
+            </div>
+            <marquee style="color:red;behavior:scroll;font-size:10px;display:block;">Note:Please do not refresh page
+                before click on save,
+                it may lost your current record!!</marquee>
 
             <?php 
 $query = "SELECT DISTINCT `roll_no`,`status`,`student_name`,`course`,`branch`,`semester`,`section` FROM `attendance` WHERE `course`='$course' AND `branch`='$branch' AND `semester`='$semester' AND `section`='$section' AND `date`='$date' AND `subject_code`='$subjectcode'";
@@ -70,6 +72,11 @@ if(mysqli_num_rows($result)>0){?>
             <?php 
     $i=0;
     while($row = mysqli_fetch_assoc($result)){
+        $course = $row['course'];
+        $branch = $row['branch'];
+        $semester = $row['semester'];
+        $section = $row['section'];
+        $roll_no = $row['roll_no'];
         $i++;
 ?>
             <div id="grid-item-aesh">
@@ -79,14 +86,14 @@ if(mysqli_num_rows($result)>0){?>
                 </div>
 
                 <!-- Mandatory..Give each student radio button name different! -->
-                <input type="hidden" name="course[<?php echo $i ?>]" value="<?php echo $row['course'] ?>">
-                <input type="hidden" name="branch[<?php echo $i ?>]" value="<?php echo $row['branch'] ?>">
-                <input type="hidden" name="semester[<?php echo $i ?>]" value="<?php echo $row['semester'] ?>">
-                <input type="hidden" name="section[<?php echo $i ?>]" value="<?php echo $row['section'] ?>">
+                <input type="hidden" name="course[<?php echo $i ?>]" value="<?php echo $course ?>">
+                <input type="hidden" name="branch[<?php echo $i ?>]" value="<?php echo $branch ?>">
+                <input type="hidden" name="semester[<?php echo $i ?>]" value="<?php echo $semester ?>">
+                <input type="hidden" name="section[<?php echo $i ?>]" value="<?php echo $section ?>">
                 <input type="hidden" name="subject_code[<?php echo $i ?>]" value="<?php echo $subjectcode; ?>">
                 <input type="hidden" name="subject_name[<?php echo $i ?>]" value="<?php echo $subjectname; ?>">
                 <input type="hidden" name="date[<?php echo $i ?>]" value="<?php echo $date; ?>">
-                <input type="hidden" name="roll_no[<?php echo $i ?>]" value="<?php echo $row['roll_no'] ?>">
+                <input type="hidden" name="roll_no[<?php echo $i ?>]" value="<?php echo $roll_no ?>">
 
                 <label class="status-label1">
                     <input type="radio" name="attendance[<?php echo $i ?>]" value="Present"
@@ -99,6 +106,28 @@ if(mysqli_num_rows($result)>0){?>
                         style="width: 20px;height:20px;" <?php if($row['status']=='Absent'){?>checked<?php }?>>
                     <strong>Absent</strong>
                 </label>
+
+                <?php 
+            $query2 = "SELECT COUNT(`status`) FROM `attendance` WHERE `course`='$course' AND `branch`='$branch' AND `semester`='$semester' AND `section`='$section' AND `status`='Present' AND `roll_no`='$roll_no' AND `subject_code`='$subjectcode'";
+            $result2 = mysqli_query($conn,$query2);
+            $row2 = mysqli_fetch_array($result2);
+            $total_present = $row2[0];
+            
+            $query3 = "SELECT COUNT(`status`) FROM `attendance` WHERE `course`='$course' AND `branch`='$branch' AND `semester`='$semester' AND `section`='$section' AND `subject_code`='$subjectcode' AND `roll_no`='$roll_no'";
+            $result3 = mysqli_query($conn,$query3);
+            $row3 = mysqli_fetch_array($result3);
+            $total_status = $row3[0];
+                        
+             // if $total_status is 0 than we simply assign present_percent_status= 0 for instead of getting divide by zero error. 
+             if($total_status !== "0"){
+                $percentage = ($total_present/$total_status)*100;
+                // format precentage upto 1 decimal place. 
+                $present_percent_subject = number_format($percentage,1);
+            }else{
+                $present_percent_subject = "0";
+            }
+            ?>
+                <b class="present_percent_subject" style="color:white;font-family: cursive;"><?=$present_percent_subject; ?>%</b>
             </div>
             <?Php
     }
@@ -134,12 +163,19 @@ if(mysqli_num_rows($result)>0){ ?>
                 <b><?php echo $section ?></b>
             </div>
 
-            <marquee style="color:red;behavior:scroll;font-size:10px;display:block;">Note:Please do not refresh page before click on save,
-            it may lost your current record!!</marquee>
+            <marquee style="color:red;behavior:scroll;font-size:10px;display:block;">Note:Please do not refresh page
+                before click on save,
+                it may lost your current record!!</marquee>
 
             <?php
     $i=0;
     while($row = mysqli_fetch_assoc($result)){
+        $name = $row['name'];
+        $course = $row['course'];
+        $branch = $row['branch'];
+        $semester = $row['semester'];
+        $section = $row['section'];
+        $roll_no = $row['registration'];
         $i++;
 ?>
 
@@ -151,12 +187,12 @@ if(mysqli_num_rows($result)>0){ ?>
 
                 <br>
 
-                <input type="hidden" name="roll_no[<?php echo $i ?>]" value="<?php echo $row['registration'] ?>">
-                <input type="hidden" name="student_name[<?php echo $i ?>]" value="<?php echo $row['name'] ?>">
-                <input type="hidden" name="course[<?php echo $i ?>]" value="<?php echo $row['course'] ?>">
-                <input type="hidden" name="branch[<?php echo $i ?>]" value="<?php echo $row['branch'] ?>">
-                <input type="hidden" name="semester[<?php echo $i ?>]" value="<?php echo $row['semester'] ?>">
-                <input type="hidden" name="section[<?php echo $i ?>]" value="<?php echo $row['section'] ?>">
+                <input type="hidden" name="roll_no[<?php echo $i ?>]" value="<?php echo $roll_no ?>">
+                <input type="hidden" name="student_name[<?php echo $i ?>]" value="<?php echo $name ?>">
+                <input type="hidden" name="course[<?php echo $i ?>]" value="<?php echo $course ?>">
+                <input type="hidden" name="branch[<?php echo $i ?>]" value="<?php echo $branch?>">
+                <input type="hidden" name="semester[<?php echo $i ?>]" value="<?php echo $semester ?>">
+                <input type="hidden" name="section[<?php echo $i ?>]" value="<?php echo $section ?>">
                 <input type="hidden" name="subject_name[<?php echo $i ?>]" value="<?php echo $subjectname; ?>">
                 <input type="hidden" name="subject_code[<?php echo $i ?>]" value="<?php echo $subjectcode; ?>">
                 <input type="hidden" name="date[<?php echo $i ?>]" value="<?php echo $date; ?>">
@@ -175,6 +211,29 @@ if(mysqli_num_rows($result)>0){ ?>
                         style="width: 20px;height:20px;" checked class="absent_button">
                     <strong>Absent</strong>
                 </label>
+
+                <?php 
+            $query2 = "SELECT COUNT(`status`) FROM `attendance` WHERE `course`='$course' AND `branch`='$branch' AND `semester`='$semester' AND `section`='$section' AND `status`='Present' AND `roll_no`='$roll_no' AND `subject_code`='$subjectcode'";
+            $result2 = mysqli_query($conn,$query2);
+            $row2 = mysqli_fetch_array($result2);
+            $total_present = $row2[0];
+            
+            $query3 = "SELECT COUNT(`status`) FROM `attendance` WHERE `course`='$course' AND `branch`='$branch' AND `semester`='$semester' AND `section`='$section' AND `subject_code`='$subjectcode' AND `roll_no`='$roll_no'";
+            $result3 = mysqli_query($conn,$query3);
+            $row3 = mysqli_fetch_array($result3);
+            $total_status = $row3[0];
+                        
+             // if $total_status is 0 than we simply assign present_percent_status= 0 for instead of getting divide by zero error. 
+             if($total_status !== "0"){
+                $percentage = ($total_present/$total_status)*100;
+                // format precentage upto 1 decimal place. 
+                $present_percent_subject = number_format($percentage,1);
+            }else{
+                $present_percent_subject = "0";
+            }
+            ?>
+            <b class="present_percent_subject" style="color:white;font-family: cursive;"><?=$present_percent_subject; ?>%</b>
+
             </div>
             <?Php
     }
@@ -185,29 +244,31 @@ if(mysqli_num_rows($result)>0){ ?>
 ?>
 
             <input type="submit" name="make_attendance" value="Save" class="save_attendance"
-                onclick="return confirm('Are you sure to make these attendance!')"><i class="fa fa-floppy-o fa-2x" aria-hidden="true"></i>
+                onclick="return confirm('Are you sure to make these attendance!')"><i class="fa fa-floppy-o fa-2x"
+                aria-hidden="true"></i>
         </form>
         <input type="checkbox" id="selectall" onchange="selectall()">
     </div>
     <?php } ?>
 
 
-    
-<script>
-    function selectall(){
-    var x= document.getElementsByClassName("present_button");
-    var y= document.getElementsByClassName("absent_button");
-    var z = document.getElementById("selectall").checked;
-    if(z==true){
-        for(var i=0;i<=x.length;i++){
-            x[i].checked = true;
+
+    <script>
+    function selectall() {
+        var x = document.getElementsByClassName("present_button");
+        var y = document.getElementsByClassName("absent_button");
+        var z = document.getElementById("selectall").checked;
+        if (z == true) {
+            for (var i = 0; i <= x.length; i++) {
+                x[i].checked = true;
             }
-    }else{
-        for(var i=0;i<=y.length;i++){
-            y[i].checked = true;
-        }
+        } else {
+            for (var i = 0; i <= y.length; i++) {
+                y[i].checked = true;
+            }
         }
     }
-</script>
+    </script>
 </body>
+
 </html>

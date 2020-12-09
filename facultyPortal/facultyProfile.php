@@ -1,7 +1,71 @@
 <!-- -------------------------------------------------*** JAI SHRI KRISHNA ***--------------------------------------- -->
 <?php
-require('facultyProfileAction.php');
-require('header.php');    
+session_start();
+
+
+if(!$_SESSION['username_faculty'])
+{
+    header('Location: ../index.php');
+}
+require('../adminstrative/config.php');
+$username = $_SESSION['username_faculty'];
+
+
+// ----------------------------For Update profile--------------------------------//
+
+if($_SERVER['REQUEST_METHOD']=='POST'){
+    $oldimage = $_POST['oldimage'];
+    $name = $_POST['name'];
+    $phone = $_POST['phone'];
+
+    $imgtype = strtolower(pathinfo($_FILES['photo']['name'],PATHINFO_EXTENSION));   //taking extension from file name.
+    if(isset($_FILES['photo']['name']) && ($_FILES['photo']['name']!="") && ($imgtype!="jpg" && $imgtype!="jpeg" && $imgtype!="png")){
+        $_SESSION['photoErr'] = "Image should be in ('jpeg','jpg' or'png') only!";
+    }else if($_FILES['photo']['size'] >= 500000){
+        $_SESSION['photoErr'] = 'Image size should be less than 500KB!';
+    }else if(!preg_match("/^[a-zA-Z- ']*$/",$name)){
+		$_SESSION['nameErr'] = "Only letters and white space allowed!";
+    }
+    else if(!preg_match("/^\d{10}$/",$phone)){
+		$_SESSION['phoneErr'] = "It should contain only 10 digit valid number!";
+    }
+    else{
+        if(isset($_FILES['photo']['name']) && ($_FILES['photo']['name']!="")){   // checking if file input was taken or not on updation!
+            $seprated = explode(".",$_FILES['photo']['name']);
+            $newfilename = round(microtime(true)).'.'.end($seprated);
+            $upload = "uploads_faculty/".$newfilename;
+            $path = "../directorPortal/uploads_faculty/".$newfilename;
+            unlink("../directorPortal/".$oldimage);
+            move_uploaded_file($_FILES['photo']['tmp_name'], $path);
+        }
+        else{
+            $upload=$oldimage;
+        }
+        $query = "UPDATE `faculty` SET `name`='$name',`phone`='$phone',`photo`='$upload' WHERE `email`='$username'";
+        $result = mysqli_query($conn,$query);
+        if(mysqli_affected_rows($conn)){
+		    $_SESSION['success'] = "Profile updated successfully!";
+        }
+    }
+}
+
+function test_input($data){
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}  
+
+$query = "SELECT * FROM `faculty` WHERE `email`='$username'";
+$result  = mysqli_query($conn,$query);
+if(mysqli_num_rows($result)==1){
+    $row = mysqli_fetch_assoc($result);
+    $photo = $row['photo'];
+    $email = $row['email'];
+    $name = $row['name'];
+    $phone = $row['phone'];
+}
+require('header.php');
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +82,7 @@ require('header.php');
     <div style="margin-top:60px;background:none;height:1px;"></div>
 
     <div class="update_profile">
-        <button onclick="goBack()">Back</button>
+        <a href="index.php" class="back_btn">Back</a>
         <span>
         <?php
             if(isset($_SESSION['success'])&& $_SESSION['success'] !='')
@@ -29,8 +93,7 @@ require('header.php');
             ?>
         </span><br>
 
-        <img id="output" src="../adminstrative/<?php echo $photo; ?>"
-            style="width:80px;height:80px;border-radius:50%;border:2px solid white;"><br>
+        <img id="output" src="../directorPortal/<?php echo $photo; ?>"><br>
             <?php
             if(isset($_SESSION['photoErr'])&& $_SESSION['photoErr'] !='')
             {
@@ -39,11 +102,11 @@ require('header.php');
             }
             ?><br>
 
-        <form method="POST" action="facultyProfileAction.php" enctype="multipart/form-data" >
+        <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" enctype="multipart/form-data" >
             <input type="hidden" name="oldimage" value="<?php echo $photo; ?>">   <!-------for unlink oldimage on update operation----------->
             <input type="file" name="photo" id="file" onchange="loadfile(event)" style="display: none;"> <!-- input 'file' field display hidden for profile photo, label will work as input element -->
             <div class="label" style="margin:10px auto 20px;">
-                <label for="file">Change your profile photo</label>
+                <label for="file">Choose your profile photo</label>
             </div>
 
             <label>Email*<input type="text" readonly value="<?php echo $email; ?>"></label><br>
@@ -63,13 +126,6 @@ require('header.php');
                 unset($_SESSION['phoneErr']);
             }
             ?><br>
-            <label>Gender
-                <select name="gender">
-                    <option value="female" <?php if($gender=='female'){echo "selected";}?>>Female</option>
-                    <option value="male" <?php if($gender=='male'){echo "Selected";}?> >Male</option>
-                    <option value="not-Defined" <?php if($gender=='not-defined'){echo "selected";}?>>Not Defined</option>
-                </select>
-            </label>
             
             <input type="submit" value="Update" name="update">
         </form>
@@ -78,13 +134,22 @@ require('header.php');
 
    
 
-    <script>
+    <script type="text/javascript">
     var loadfile = function(event) {
         var image = document.getElementById('output');
         image.src = URL.createObjectURL(event.target.files[0]);
     };
-    function goBack(){
-        window.history.back();
+    
+    function stopRKey(evt) {
+        var evt = (evt) ? evt : ((event) ? event : null);
+        var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
+        if ((evt.keyCode == 13) && (node.type=="text"))  {return false;}
+        }
+        
+    document.onkeypress = stopRKey;
+
+    if(window.history.replaceState){
+        window.history.replaceState(null,null,window.location.href);
     }
     </script>
 </body>

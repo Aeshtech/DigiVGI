@@ -1,6 +1,132 @@
 <?php
-  require('config.php');
-  require_once('action4.php');
+require('config.php');
+session_start();
+if(!$_SESSION['username_admin'])
+{
+    header('Location: ../index.php');
+}
+require("config.php");
+
+$username = $_SESSION['username_admin'];
+$sql = "SELECT `course`,`branch` FROM `admin` WHERE `email`='$username'";
+$rslt = mysqli_query($conn,$sql);
+$pro = mysqli_fetch_assoc($rslt);
+$admin_course =$pro['course'];
+$admin_branch =$pro['branch'];
+
+$update=false;
+$course="";
+$branch="";
+$semester="";
+$section="";
+$facultyname="";
+$facultyid="";
+$subjectname="";
+$subjectcode="";
+$cpermit="";
+
+
+/*------------For inserting record in database--------- */
+if(isset($_POST['submit'])){
+    $semester = $_POST['semester'];
+    $section = $_POST['section'];
+    $facultyname = $_POST['facultyname'];
+    $facultyid = $_POST['facultyid'];
+    $facultyid = filter_var($facultyid,FILTER_SANITIZE_EMAIL);
+    $subjectname = trim($_POST['subjectname']);
+    $subjectcode = trim($_POST['subjectcode']);
+    $confirm_sub_code = trim($_POST['confirm_sub_code']);
+    $cpermit = $_POST['cpermit'];
+
+    if(!preg_match("/^[a-zA-Z- ']*$/",$facultyname)){
+		$_SESSION['error'] = "Name can only contain letters and white space!";
+    }else if(isset($facultyid) && ($facultyid=="")){
+		$_SESSION['error'] = "Faculty Id should not be empty!!";
+	}else if(filter_var($facultyid,FILTER_VALIDATE_EMAIL) != TRUE){
+		$_SESSION['error'] = 'Please enter valid email address!';
+	}else if($subjectcode==""){
+        $_SESSION['error'] = 'Subject code should not be empty!';
+    }else if($confirm_sub_code==""){
+        $_SESSION['error'] = 'Subject code confirmation should not be empty!';
+    }else if($subjectcode != $confirm_sub_code){
+        $_SESSION['error'] = "Subject code confirmation doesn't match!";
+    }else{
+        $query = "INSERT INTO `assignfaculty`(`course`,`branch`,`semester`,`section`,`facultyname`,`facultyid`,`subjectname`,`subjectcode`,`cpermit`)VALUES('$admin_course','$admin_branch','$semester','$section','$facultyname','$facultyid','$subjectname','$confirm_sub_code','$cpermit')";
+        if(mysqli_query($conn,$query)){
+            $_SESSION['status'] = 'Successfully inserted!';
+        }
+    }
+}
+
+/*------------For deleting record from database--------- */
+if(isset($_POST['delete'])){
+	$id = $_POST['delete'];
+    $sql = "delete from assignfaculty where id =".$id;
+    $result = mysqli_query($conn, $sql);
+    if($result){
+        $_SESSION['status'] = 'Successfully Deleted!';
+    }
+}
+
+
+/*-------------------------------- updating record-------------------------  */
+
+if(isset($_POST['update_id'])){
+	$id = $_POST['id'];
+	
+
+// fetching record from db based on id and assigining below into variables which is working as value for 'form' in assignfaculty.php!
+$query = "SELECT * FROM `assignfaculty` WHERE id = '$id' ";
+$result=mysqli_query($conn,$query);
+$numRows = mysqli_num_rows($result);
+if($numRows==1){
+    $row = mysqli_fetch_assoc($result);
+    
+    $semester = $row['semester'];
+    $section = $row['section'];
+    $facultyname = $row['facultyname'];
+    $facultyid = $row['facultyid'];
+    $subjectname = $row['subjectname'];
+    $subjectcode = $row['subjectcode'];
+    $cpermit = $row['cpermit'];
+    $update=true;
+}
+}
+
+/*================================Updating Record==================================== */
+
+// we are using Php procedural oriented approach here for updating record.
+
+if(isset($_POST['update'])){
+    $id = $_POST['id'];
+    $semester = $_POST['semester'];
+    $section = $_POST['section'];
+    $facultyname = $_POST['facultyname'];
+    $facultyid = $_POST['facultyid'];
+    $facultyid = filter_var($facultyid,FILTER_SANITIZE_EMAIL);
+    $subjectname = trim($_POST['subjectname']);
+    $subjectcode = trim($_POST['subjectcode']);
+    $confirm_sub_code = trim($_POST['confirm_sub_code']);
+    $cpermit = $_POST['cpermit'];
+
+    if(isset($facultyid) && ($facultyid=="")){
+		$_SESSION['error'] = "Faculty Id should not be empty!!";
+	}else if(filter_var($facultyid,FILTER_VALIDATE_EMAIL) != TRUE){
+		$_SESSION['error'] = 'Please enter valid email address!';
+	}else if($subjectcode==""){
+        $_SESSION['error'] = 'Subject code should not be empty!';
+    }else if($confirm_sub_code==""){
+        $_SESSION['error'] = 'Subject code confirmation should not be empty!';
+    }else if($subjectcode != $confirm_sub_code){
+        $_SESSION['error'] = "Subject code confirmation doesn't match!";
+    }else{
+        $query = "UPDATE `assignfaculty` set `semester`='$semester', `section`='$section',`facultyname`='$facultyname',`facultyid`='$facultyid', `subjectname`='$subjectname', `subjectcode`='$confirm_sub_code',`cpermit`='$cpermit' WHERE `id`='$id'";
+        $result= mysqli_query($conn,$query);
+        if(mysqli_affected_rows($conn)==1){
+            $_SESSION['status'] = 'Successfully Updated !';
+        }
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -35,7 +161,6 @@
     <!-- ===============Navigation Bar========================== -->
     <div class="topnav" id="myTopnav">
         <a href="index.php">Home</a>
-        <a href="Faculty.php">Faculty</a>
         <a href="Student.php">Student</a>
         <a href="AssignFaculty.php" class="active">Assign Faculty</a>
         <a href="About.php">About us</a>
@@ -44,7 +169,7 @@
         <div class="profile_div">
             <span class="profile_name"><?php echo $username;?></span>
             <div class="dropdown">
-                <div class="profile"><img src="<?=$profile;?>"></div>
+                <div class="profile"><img src="../directorPortal/<?=$profile;?>"></div>
                 <div class="dropdown-content">
                   <form action="../logout.php" method="POST">
                       <a><i class="fas fa-sign-out-alt"></i><input type="submit" name="signoutBtn" value="Log-out" style="color: var(--primary);"></input></a>
@@ -79,7 +204,7 @@
             <h1>Assigned Faculty List</h1>
             <!-- Status of operations perform on Record -->
             <div id="success_status">
-                <?php
+            <?php
             if(isset($_SESSION['status'])&& $_SESSION['status'] !='')
             {
             echo '<b>'.$_SESSION['status'].'</b>';
@@ -88,7 +213,7 @@
             ?>
             </div>
             <div id="failed_status">
-                <?php
+            <?php
             if(isset($_SESSION['error'])&& $_SESSION['error'] !='')
             {
             echo '<b>'.$_SESSION['error'].'</b>';
@@ -131,9 +256,14 @@
                         <td><?php echo $row['subjectcode'] ?></td>
                         <td><?php echo $row['cpermit'] ?></td>
                         <td class="text-center">
-                            <a href="assignfaculty.php?id=<?php echo $row['id'] ?>" class="update">Update</a>
-                            <a href="action4.php?delete=<?php echo $row['id'] ?>" class="delete"
-                                onclick="return confirm('Are you sure to delete this record?')">Delete</a>
+                            <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF'])?>" method="POST">
+                                <input type="hidden" name="id" value="<?php echo $row['id']?>">
+                                <input type="submit" value="Update" name="update_id" class="update">
+                            </form>
+                            <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF'])?>" method="POST">
+                                <input type="hidden" name="id" value="<?php echo $row['id']?>">
+                                <input type="submit" value="Delete" name="delete" class="delete" onclick="return confirm('Are you sure to delete this record?')">
+                            </form>
                         </td>
                     </tr>
                     <?php
@@ -148,35 +278,9 @@
         <!-- ========================= Input form==================== -->
         <div class="grid-item3 form">
             <h1>Assign Faculty</h1>
-            <form action="action4.php" method="post" autocomplete="off">
+            <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF'])?>" method="post" autocomplete="off">
                 <div>
                     <input type="hidden" name="id" value="<?= $id;?>">
-                    <!-- <label>Course:</label>
-                    <select name="course" required id="course">
-                        <option value='' selected disabled>select</option>
-                        <option value="B.Tech" <?php if($course=='B.Tech'){echo "selected";} ?>> B.Tech </option>
-                        <option value="B.Pharma" <?php if($course=='B.Pharma'){echo "selected";} ?>> B.Pharma </option>
-                        <option value="Polytechnic" <?php if($course=='Polytechnic'){echo "selected";} ?>> Polytechnic
-                        </option>
-                        <option value="B.BA" <?php if($course=='B.BA'){echo "selected";} ?>> B.BA </option>
-                        <option value="B.Sc" <?php if($course=='B.Sc'){echo "selected";} ?>> B.Sc </option>
-                        <option value="M.Tech" <?php if($course=='M.Tech'){echo "selected";} ?>> M.Tech </option>
-                        <option value="M.Pharma" <?php if($course=='M.Pharma'){echo "selected";} ?>> M.Pharma </option>
-                        <option value="M.BA" <?php if($course=='M.BA'){echo "selected";} ?>> M.BA </option>
-                        <option value="M.Sc" <?php if($course=='M.Sc'){echo "selected";} ?>> M.Sc </option>
-                    </select>
-                </div>
-                <div>
-                    <label>Branch:</label>
-                    <select name="branch" required id="branch">
-                        <option value='None' selected <?php if($branch=='none'){echo "selected";} ?>>None</option>
-                        <option value="CSE" <?php if($branch=='CSE'){echo "selected";} ?>>Computer Science & Engg.</option>
-                        <option value="EE" <?php if($branch=='EE'){echo "selected";} ?>>Electrical Engg.</option>
-                        <option value="EEE" <?php if($branch=='EEE'){echo "selected";} ?>>Electrical & Elecronics Engg.</option>
-                        <option value="ME" <?php if($branch=='ME'){echo "selected";} ?>>Mechanical Engg.</option>
-                        <option value="CIVIL" <?php if($branch=='CIVIL'){echo "selected";} ?>>Civil Engg.</option>
-                    </select>
-                </div> -->
                 <div>
                     <label>Semester:</label>
                     <select name="semester" id="semester" required>
@@ -228,7 +332,7 @@
                 <div>
                     <label>C-Permit (Attendance Update Permit):</label>
                     <select name="cpermit" required style="width:70px;height:25px;border-radius:5px;">
-                        <option value='NO' selected <?php if($cpermit=='NO'){echo "selected";} ?>>NO</option>
+                        <option value='No' selected <?php if($cpermit=='No'){echo "selected";} ?>>No</option>
                         <option value="Yes" <?php if($cpermit=='Yes'){echo "selected";} ?>>Yes</option>
                     </select>
                 </div>

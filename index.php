@@ -42,13 +42,22 @@ session_start();
             </div>
             
             <div class="inputbox">
-                <input type="password" name="password" class="f-input" value="<?php if(isset($_COOKIE['digivgi_password'])) { echo $_COOKIE['digivgi_password'];} ?>" required>
+                <!-- decoding cookie value if set. -->
+                <?php if(isset($_COOKIE['digivgi_password'])){
+                    $password = base64_decode($_COOKIE['digivgi_password']);
+                    }else{
+                        $password ="";
+                    }
+                ?>
+                <input type="password" name="password" class="f-input" value="<?= $password; ?>" required>
                 <label>Password</label>
             </div>
             
             <div class="remember_me">
+            <label>
                 <input type="checkbox" name="remember_me" <?php if(isset($_COOKIE['digivgi_email'])) { ?> checked <?php }?> >
-                <b>Remember Me</b>
+                <b style="cursor: pointer;">Remember Me</b>
+            </label>                
             </div>
             <input class="f-submit" name="login_btn" type="submit" value="Log-in">
         </form>

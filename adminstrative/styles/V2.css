@@ -192,7 +192,7 @@ img.vgi_logo_bg{
 .box .inputbox input{
   width: 85%;
   padding: 3px 0;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: bold;
   color: rgb(0, 0, 0);
   letter-spacing: 1px;
@@ -218,7 +218,7 @@ img.vgi_logo_bg{
 }
 .box .inputbox input:valid ~ label,.box .inputbox input:hover ~ label{
     position:absolute;
-    top:-30px;
+    top:-50px;
     left:65%;
     color: var(--primary);
 }
@@ -558,7 +558,7 @@ div.row .grid-item3 h1{
   outline: none;
   width: 70px;
 }
-div.row .grid-item2 input[type="text"]{
+.grid-item2 input[type="text"]{
   width: 20%;
   border: none;
   outline:none;
@@ -568,7 +568,7 @@ div.row .grid-item2 input[type="text"]{
   padding-left: 40px;
   font-size: 20px;
 }
-div.row .grid-item2 input[type="text"]:hover{
+.grid-item2 input[type="text"]:hover{
   background-color: yellow;
 }
 div.input-icons{
@@ -623,8 +623,8 @@ div.row .icon {
   box-shadow: 5px 5px 10px grey;
 }
 
-#success_status b,#failed_status b{
-  animation: hidestatus 0s ease-in 4s forwards;
+#success_status b,#failed_status b,span.common_mssg,span.success_mssg{
+  animation: hidestatus 0s ease-in 5s forwards;
 }
 @keyframes hidestatus{
   to{
@@ -644,34 +644,37 @@ th { border: 2px solid #161616; padding: 8px; color:black;font-size: 18px;font-w
 td { border: 1px solid #aca7a7; color:black; font-size:15px; font-weight: bold; text-align: left; padding: 8px;}
 tr:nth-child(even),table.List thead>tr { background-color: #ffffff;text-shadow: 1px 1px 7px rgb(182, 174, 174);}
 
-div.row .grid-item3 input,#course,#branch,#semester,#section,#gender{
+.grid-item3 input,#course,#branch,#semester,#section,#gender{
   width: 70%; padding: 12px 20px; margin: 8px auto; display: block; 
   border: 1px solid #ccc; border-radius: 10px; box-sizing: border-box;}
 
-div.row input[type=submit]{ width: 70%; background-color:greenyellow;border: 2px ridge var(--alert); color:var(--alert); font:20px bold;
+.grid-item3 input[type=submit]{ width: 70%; background-color:greenyellow;border: 2px ridge var(--alert); color:var(--alert); font:20px bold;
     margin-top: 40px; cursor: pointer;}
     
 /* Hover effect for form Inputs */
-div.row .form input:hover,#gender:hover,#course:hover,#branch:hover,#semester:hover,#section:hover,#course:hover{
+.grid-item3 input:hover,#gender:hover,#course:hover,#branch:hover,#semester:hover,#section:hover,#course:hover{
   background-color: greenyellow;
 }
-div.row .form input[type="submit"]:hover{
+.grid-item3 input[type="submit"]:hover{
   background-color:var(--alert);
   color: white;
 }
 /* Focus effect for form Inputs */
-div.row .form input:focus, #gender:focus,#course:focus,#branch:focus,#semester:focus,#section:focus,#dob:focus,#studentDOB:focus{
+.form input:focus, #gender:focus,#course:focus,#branch:focus,#semester:focus,#section:focus,#dob:focus,#studentDOB:focus{
   background-color: yellow;
 }
 
 /* ---------Anchor's tag in the Table's Action field------- */
-table td .show{ cursor: pointer;text-decoration: none;border: 2px ridge var(--primary); border-radius: 5px; padding: 5px; color:var(--primary); margin-right: 4px;box-shadow: 1px 1px 5px black;}
+table td form{
+  display: inline-block;
+}
+table td .show{ cursor: pointer;font-weight:bold;text-decoration: none;border: 2px ridge var(--primary); border-radius: 5px; padding: 5px; color:var(--primary); margin-right: 4px;box-shadow: 1px 1px 5px black;}
 table.List .show:hover{ cursor: pointer;text-decoration: none;background-color: var(--primary); border-radius: 5px; padding: 5px; color:white; margin-right: 4px;}
 
-table td .update{ cursor: pointer;text-decoration: none;border: 2px ridge rgb(159, 1, 250); border-radius: 5px; padding: 5px; color:rgb(159, 1, 250); margin-right: 4px;box-shadow: 1px 1px 5px black;}
+table td .update{ cursor: pointer;font-weight:bold;text-decoration: none;border: 2px ridge rgb(159, 1, 250); border-radius: 5px; padding: 5px; color:rgb(159, 1, 250); margin-right: 4px;box-shadow: 1px 1px 5px black;}
 table.List .update:hover{ cursor: pointer;text-decoration: none;background-color: rgb(159, 1, 250); border-radius: 5px; padding: 5px; color:white; margin-right: 4px;}
 
-table.List .delete{ cursor: pointer;text-decoration: none;border: 2px ridge var(--alert); border-radius: 5px; padding: 5px; color:var(--alert); margin-right: 4px;box-shadow: 1px 1px 5px black;}
+table.List .delete{ cursor: pointer;font-weight:bold;text-decoration: none;border: 2px ridge var(--alert); border-radius: 5px; padding: 5px; color:var(--alert); margin-right: 4px;box-shadow: 1px 1px 5px black;}
 table.List .delete:hover{ cursor: pointer;text-decoration: none;background-color: var(--alert); border-radius: 5px; padding: 5px; color:white; margin-right: 4px;}
 
 /* ------for validation error mssg--------- */
@@ -725,18 +728,15 @@ div.coursesform form input:focus{
 
 
 /* ============================================Profile Update ==========================*/
-.profile_bg{
-  background:rgba(0, 0, 0, 0.945);
-}
+
 .update_profile{
   text-align: center;
-  margin-top: 70px;
-  /* cursor: pointer; */
-  color:white;
+  margin-top:0;
+  color:black;
   font-weight:bold;
   font-size: 16px;
 }
-.update_profile button{
+.update_profile .back_btn{
   border: none;
   position: fixed;
   color: white;
@@ -745,26 +745,30 @@ div.coursesform form input:focus{
   font-size: medium;
   border-radius: 10px;
   outline: none;
-  /* position: absolute; */
+  top: 10vh;
   left: 5%;
 }
 .update_profile img{
 width:100px;
 height:100px;
 border-radius:50%;
-border:2px solid white;
-margin-top:10px;
+border:2px solid black;
+margin-top:5px;
 clear: both;
 }
+.update_profile label{
+  display: initial;
+}
 .update_profile input{
-  width: 30%;
-  font-size: 17px;
-  color: white;
+  width:70%;
+  font-size: 18px;
+  font-weight: bold;
+  color:blueviolet;
   padding: 10px;
   margin: 10px;
   border:none;
   outline: none;
-  border-bottom: 2px solid white;
+  border-bottom: 2px solid blueviolet;
   background: none;
 }
 .update_profile select{
@@ -784,7 +788,7 @@ clear: both;
   margin-top: 40px;
   padding: 5px;
   background: none;
-  border: 2px solid white;
+  border: 2px solid black;
   border-radius: 20px;
   outline: none;
 }
@@ -920,4 +924,170 @@ div.home-footer a{
   font-size: medium;
   float: right;
   margin-right:20px ;
+}
+
+
+
+  /* =======================================================Director Portal================================= */
+
+#dir_left{
+    width: 15%;
+    position: fixed;
+    float: left;
+    height: 100vh;
+    background:darkviolet;
+    background-position: top;
+}
+
+#dir_profile_left{
+  position: relative;
+}
+#dir_profile_left img{
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border-color:black;
+  position: absolute;
+  top: 5vh;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#dir_nav-left{
+  margin: 25vh 3em auto;
+  background:rgb(245, 243, 243);
+  border-radius: 20px;
+  padding: 20px;
+}
+#dir_nav-left ul{
+  padding:0;
+}
+#dir_nav-left li{
+  list-style-type:none;
+  font-size:22px;
+  font-weight: bold;
+  color:blueviolet;
+  margin-top: 25px;
+}
+
+#dir_top-container{
+  width: 85%;
+  float: right;
+  position: fixed;
+  right: 0;
+  z-index: 50;
+}
+.logodiv2{
+  width: 100%;
+  background: darkviolet;
+  height:4em;
+  box-shadow:9px 3px 7px dimgrey;
+}
+.logodiv2 h1{
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-block;
+  text-shadow: 2px 2px 4px black;
+  background: var(--primary);
+  color: white;
+  font-size: 2.2em;
+  font-weight: bold;
+  padding: 0px 60px 4px 10px;
+  border-radius: 20px;
+  border: 2px double white;
+  margin-top: 3.5px
+}
+.logodiv2 #logo{
+  position: absolute;
+  left: 53%;
+  top: 6px;
+  width: 35px;
+}
+.profile_name{
+  color: white;
+} 
+.dir_nav-footer{
+  background:white;
+  color: #161616;
+  font-size: 16px;
+  position: absolute;
+  bottom: 10px;
+  left: 22px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 2px solid black;
+}
+
+#dir_main{
+  width: 85%;
+  height: 93vh;
+  float: right;
+  margin-top: 7vh;
+  background:rgba(85, 15, 117, 0.137);
+}
+
+span.common_mssg{
+  background: white;
+  color: red;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 10px;
+  border: 2px solid red;
+  border-radius: 10px;
+}
+span.success_mssg{
+  background: rgb(49, 255, 8);
+  color: rgb(4, 66, 4);
+  font-size: 15px;
+  font-weight: bold;
+  padding: 10px;
+  border: 2px solid rgb(16, 56, 4);
+  border-radius: 10px;
+}
+.search-div{
+  width: 20%;
+  position: absolute;
+  right: 20px;
+  top: 10vh;
+}
+.search-div input{
+  width: 100%;
+  height: 4vh;
+  color: darkviolet;
+  font-size: 18px;
+  border: 2px solid darkviolet;
+}
+
+.grid-item2 h2{
+  text-align: center;
+  color: darkviolet;
+  font-weight: bold;
+  margin: 0;
+}
+
+#activestatus_grid_container{
+  float: right;
+  display: grid;
+  background:#9400d3;
+  grid-template-columns:100%;
+  margin-top: 7vh;
+  height: 92vh;
+  width: 10%;
+  color: white;
+  padding-top: 40px;
+  text-align: center;
+}
+#activestatus_grid_item{
+  background:whitesmoke;
+  height: 20vh;
+  margin: 7px;
+  padding: 10px;
+  text-align: center;
+  border-radius: 25px;
+  color: darkviolet;
+}
+#activestatus_grid_item h1,#activestatus_grid_item h2{
+  color: darkviolet;
+  font-weight: bold;
 }

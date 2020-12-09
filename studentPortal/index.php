@@ -43,7 +43,6 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE );
     $semester = $data['semester'];
     $section = $data['section'];
     $roll_no = $data['registration'];
-    $roll_no = $data['registration'];
     $student_name = $data['name'];
     ?>
     <!-- =============================Subjects list in grid============================= -->
@@ -51,11 +50,11 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE );
         <?php
 
 $sql = "SELECT `subjectname`,`subjectcode` from `assignfaculty` where `course`= '$course' AND `branch`='$branch' AND `semester` = '$semester' AND `section` = '$section'";
-$result = mysqli_query($conn, $sql);
+$result1 = mysqli_query($conn, $sql);
 
-if(mysqli_num_rows($result)>0){
+if(mysqli_num_rows($result1)>0){
     $i=0;     // mysqli_num_rows() return total count of rows!
-    while($row = mysqli_fetch_assoc($result)){
+    while($row = mysqli_fetch_assoc($result1)){
         $i++;
         $subjectname =  $row['subjectname'];
         $subjectcode =  $row['subjectcode'];
@@ -68,18 +67,40 @@ if(mysqli_num_rows($result)>0){
             <!-- -----for view record------ -->
             <a href="#openModal-view[<?php echo $i ?>]">
             <div class="view-record-container" style="top: 25%;">
-                <i class="fas fa-eye"style="color: white;margin-right:15px;"></i>
-            <span style="font-size: 16px;">View Attendance</span>
+                <i class="fas fa-eye"style="color: white;margin-right:5px;"></i>
+            <span style="font-size: 18px;">View Attendance</span>
             </div>
             </a>
             
             <!-- -----for export record------ -->
             <a href="#openModal-export[<?php echo $i ?>]">
             <div class="export-record-container">
-                <i class="fas fa-file-excel"style="color: white;margin-right:15px;"></i>
-                <span style="font-size: 16px;">Export Attendance</span>
+                <i class="fas fa-file-excel"style="color: white;margin-right:5px;"></i>
+                <span style="font-size: 18px;">Export Attendance</span>
             </div>
             </a>
+
+            <?php 
+            $query2 = "SELECT COUNT(`status`) FROM `attendance` WHERE `course`='$course' AND `branch`='$branch' AND `semester`='$semester' AND `section`='$section' AND `status`='Present' AND `roll_no`='$roll_no' AND `subject_code`='$subjectcode'";
+            $result2 = mysqli_query($conn,$query2);
+            $row2 = mysqli_fetch_array($result2);
+            $total_present = $row2[0];
+            
+            $query3 = "SELECT COUNT(`status`) FROM `attendance` WHERE `course`='$course' AND `branch`='$branch' AND `semester`='$semester' AND `section`='$section' AND `subject_code`='$subjectcode' AND `roll_no`='$roll_no'";
+            $result3 = mysqli_query($conn,$query3);
+            $row3 = mysqli_fetch_array($result3);
+            $total_status = $row3[0];
+                        
+             // if $total_status is 0 than we simply assign present_percent_status= 0 for instead of getting divide by zero error. 
+             if($total_status !== "0"){
+                $percentage = ($total_present/$total_status)*100;
+                // format precentage upto 1 decimal place. 
+                $present_percent_subject = number_format($percentage,1);
+            }else{
+                $present_percent_subject = "0";
+            }
+            ?>
+            <h3 class="present_percent_subject" style="margin-top:17vh;color:white;font-family: cursive;">Total Present = <?=$present_percent_subject; ?>%</h3>
 
             <?php 
                 $sql_query = "SELECT `status` FROM `attendance` WHERE `date`='$date' AND `course`='$course' AND `branch`='$branch' AND `semester`='$semester' AND `section`='$section' AND `roll_no`='$roll_no' AND `subject_code`='$subjectcode'";
@@ -97,7 +118,7 @@ if(mysqli_num_rows($result)>0){
                 <button class="pulse-button-a">A</button>
 
                 <?php }else{
-                    echo "<span style='position:absolute;left:50%;transform:translateX(-50%);width:100%;bottom:10px;color:white;'>Today attendance not taken yet!<span>"; 
+                    echo "<span style='position:absolute;left:50%;transform:translateX(-50%);width:100%;bottom:10px;font-size:larger;color:white;'>Today attendance not taken yet!<span>"; 
                 }
                 ?>
         </div>
@@ -130,7 +151,7 @@ if(mysqli_num_rows($result)>0){
         </form>
 
         <!-- ------------Form as modal for export attendance record--------------- -->
-        <form action="export_attendance.php" id="openModal-export[<?php echo $i ?>]" method="POST" class="modalDialog">
+        <form action="export_by_spreadsheet.php" id="openModal-export[<?php echo $i ?>]" method="POST" class="modalDialog">
 
             <input type="hidden" name="subjectname[<?php echo $i ?>]" value="<?php echo $row['subjectname']?>">
             <input type="hidden" name="subjectcode[<?php echo $i ?>]" value="<?php echo $row['subjectcode']?>">

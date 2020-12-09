@@ -21,9 +21,6 @@ $admin_branch =$pro['branch'];
     <title>Attendance View</title>
     <link rel="stylesheet" href="../digivgi_styles.css">
     <style>
-        body{
-            overflow-x:hidden ;
-        }
     .logodiv{
   position: fixed;
   width: 100%;
@@ -116,7 +113,6 @@ if(isset($_POST['view-based-on-subject'])){
     $j=0;
     while($row3=mysqli_fetch_assoc($result3)){
         $arr[] = $row3['status'];
-        echo $arr[$j];
         $j++;
     }
     ?>
@@ -134,7 +130,7 @@ if(isset($_POST['view-based-on-subject'])){
                             <th>Roll No</th>
                             <th>Student Name</th>
                             <?php
-                            if(mysqli_num_rows($result)>0){
+                            if(mysqli_num_rows($result1)>0){
                                 while($row1 = mysqli_fetch_assoc($result1)){?>
                                 <th><?=$row1['date']?></th>
                             <?php
