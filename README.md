@@ -1,2 +1,2 @@
 # DigiVGI
-DigiVGI  is a Student Attendance Management System which changed the tradition way of making attendance. This is a web based application which uses MySQL database and Server side PHP. It provides great functionalities to both college Faculty and Students.
+ DigiVGI which can be expanded as "Digital Vishveshwarya Group of Institutions", is Student Attendance Management System (SAMS). It was developed in order to digitalize the tradition way of taking students attendance based on the subject.  This is a web based application which uses MySQL database and Server side PHP. It provides great functionalities to both college Faculty and Students.
