@@ -60,7 +60,7 @@ if(isset($_POST['submit'])){
 
 /*------------For deleting record from database--------- */
 if(isset($_POST['delete'])){
-	$id = $_POST['delete'];
+	$id = $_POST['id'];
     $sql = "delete from assignfaculty where id =".$id;
     $result = mysqli_query($conn, $sql);
     if($result){
@@ -176,7 +176,6 @@ if(isset($_POST['update'])){
                   </form>
                   <a href="adminProfile.php"><i class="fas fa-user-circle"></i>Profile</a>
                   <a href="adminPrivacy.php"><i class="fas fa-key"></i>Privacy</a>
-                  <a href="makeAdmin.php"><i class="fas fa-user-circle"></i>Make Admin</a>
                 </div>
             </div>
         </div>
@@ -349,6 +348,12 @@ if(isset($_POST['update'])){
     </div>
 
     <script src="myapp.js"></script>
+    <script>
+     //for prevent resubmission of form accidentally.
+     if(window.history.replaceState){
+        window.history.replaceState(null,null,window.location.href);
+    }
+    </script>
 </body>
 
 </html>

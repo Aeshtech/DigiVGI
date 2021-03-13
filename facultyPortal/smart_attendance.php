@@ -7,7 +7,6 @@ if(!$_SESSION['username_faculty'])
 }
 require('../adminstrative/config.php');
 require('header.php');
-error_reporting(E_ERROR | E_WARNING | E_PARSE );
 ?>
 
 <!DOCTYPE html>
@@ -244,14 +243,11 @@ if(mysqli_num_rows($result)>0){ ?>
 ?>
 
             <input type="submit" name="make_attendance" value="Save" class="save_attendance"
-                onclick="return confirm('Are you sure to make these attendance!')"><i class="fa fa-floppy-o fa-2x"
-                aria-hidden="true"></i>
+                onclick="return confirm('Are you sure to make these attendance!')">
         </form>
         <input type="checkbox" id="selectall" onchange="selectall()">
     </div>
     <?php } ?>
-
-
 
     <script>
     function selectall() {

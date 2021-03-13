@@ -9,9 +9,6 @@ include("dir_adminAction.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View & Make Admin</title>
     <link rel="stylesheet" type="text/css" href="../adminstrative/styles/V2.css">
-    <script type="text/javascript" src="../adminstrative/myapp.js"></script>
-
-
 </head>
 <body>
 <div id="dir_main">
@@ -182,4 +179,5 @@ var loadfile = function(event) {
         image.src = URL.createObjectURL(event.target.files[0]);
     };
 </script>
+<script type="text/javascript" src="../adminstrative/myapp.js"></script>
 </html>

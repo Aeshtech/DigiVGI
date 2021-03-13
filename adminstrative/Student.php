@@ -242,7 +242,6 @@ if(isset($_POST['delete'])){
                         </form>
                         <a href="adminProfile.php"><i class="fas fa-user-circle"></i>Profile</a>
                         <a href="adminPrivacy.php"><i class="fas fa-key"></i>Privacy</a>
-                        <a href="makeAdmin.php"><i class="fas fa-user-circle"></i>Make Admin</a>
                     </div>
                 </div>
             </div>
@@ -448,6 +447,11 @@ if(isset($_POST['delete'])){
         var image = document.getElementById('output');
         image.src = URL.createObjectURL(event.target.files[0]);
     };
+
+     //for prevent resubmission of form accidentally.
+     if(window.history.replaceState){
+        window.history.replaceState(null,null,window.location.href);
+    }
     </script>
 </body>
 

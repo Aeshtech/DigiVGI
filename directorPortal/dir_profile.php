@@ -122,7 +122,7 @@ $phone = $row['phone'];
             }
             ?><br>
 
-        <form method="POST" action="" enctype="multipart/form-data" >
+        <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" enctype="multipart/form-data" >
             <input type="hidden" name="id" value="<?= $id ?>" >
 
             <!-------for unlink oldimage on update operation----------->
@@ -171,11 +171,13 @@ $phone = $row['phone'];
 
 
     <script>
+    //for set image in img field as directly choosen by file input.
     var loadfile = function(event) {
         var image = document.getElementById('output');
         image.src = URL.createObjectURL(event.target.files[0]);
     };
 
+    //for prevent resubmission of form accidentally.
     if(window.history.replaceState){
         window.history.replaceState(null,null,window.location.href);
     }

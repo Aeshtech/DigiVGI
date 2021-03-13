@@ -82,3 +82,59 @@ function filterTable4(event) {
         }
 
     }
+
+
+
+
+    
+  // Scripting for azax call to track record at directorPortal .
+  google.charts.load("current", {packages:["corechart"]});
+  google.charts.setOnLoadCallback(drawChart);
+  let chartarray = [];
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable(chartarray);
+
+    var options = {
+      title: 'Attendance Status of slected credentials',
+      pieHole: 0.4,
+      chartArea: {
+            left: "22%",
+            top: "10%",
+            height: "100%",
+            width: "100%"
+        }
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+    chart.draw(data, options);
+  }
+
+
+  // azax---!
+  function showUser() {
+    var course = document.getElementById("dir_course").value;
+    var semester = document.getElementById("dir_semester").value;
+    var branch = document.getElementById("dir_branch").value;
+    console.log(branch);
+    var startdate = document.getElementById("dir_startdate").value;
+    var enddate = document.getElementById("dir_enddate").value;
+  if (course == ""){
+    document.getElementById("chart").innerHTML = '<h2>Please select any course.</h2>';
+    return;
+  }else if(startdate == "" || enddate ==""){
+    document.getElementById("chart").innerHTML = '<h2>Please select the date.</h2>';
+  }else {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        chartarray = [   ['Status', 'Total Present Or Absent'],
+      ['Present', parseInt(this.responseText,10)],
+      ['Absent',100-parseInt(this.responseText,10)]];
+      document.getElementById("chart").innerHTML = '<div id="donutchart"></div>';
+      drawChart();  
+    }
+    }
+    xmlhttp.open("POST","azax.php",true);
+    xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xmlhttp.send("course="+course+"&semester="+semester+"&branch="+branch+"&startdate="+startdate+"&enddate="+enddate);
+  }}

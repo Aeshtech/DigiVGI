@@ -56,16 +56,17 @@ body {
 
 div#wrapper{
   position: fixed;
-  background: var(--primary);
-  width: 100%;
-  height: 100vh;
+  width: 35%;
+  height: 70vh;
   z-index: 999999;
   text-align: center;
   color: #fff;
+  box-shadow: 3px 3px 10px grey;
 }
 #wrapper h3{
   position: absolute;
-  top: 34%;
+  color: darkviolet;
+  top: 40%;
   left: 50%;
   font-size: 30px;
   transform: translateX(-50%);
@@ -79,9 +80,9 @@ div#wrapper{
   width: 10rem;
   height: 10rem;
   display: inline-block;
-  border: 3px solid rgba(255,255,255,0.3);
+  border: 3px solid #b77bf180;
   border-radius:50%;
-  border-top-color:#fff;
+  border-top-color:darkviolet;
   margin-bottom:10rem;
   animation: spin 1s infinite ease-in-out;
 }
@@ -93,7 +94,7 @@ div#wrapper{
 
 #wrapper .loading-dots {
   position: absolute;
-  top: 50%;
+  top: 65%;
   left: 0;
   right: 0;
   margin: auto;
@@ -101,7 +102,7 @@ div#wrapper{
 .loading-dots > div{
   width: 3rem;
   height: 3rem;
-  background: #fff;
+  background:darkviolet;
   border-radius: 50%;
   display: inline-block;
   animation: bounce 1.5s infinite ease-in-out both;
@@ -1065,15 +1066,69 @@ span.success_mssg{
   font-weight: bold;
   margin: 0;
 }
-
+#dir_index_container{
+  margin-left: 19em;
+  position: relative;
+  top: 7vh;
+  width: 85%;
+  height: 92vh;
+}
+#dir_index_item{
+  height: 87vh;
+}
+#donutchart{
+  width: 550px;
+  height: 550px;
+}
+#donutchart:hover{
+  box-shadow: 3px 3px 10px grey;
+}
+.dir_azax_input{
+  margin: 2vh 0 0 2em;
+  display: inline-block;
+}
+.dir_azax_input input[type="button"]{
+  background:darkviolet;
+  color:white;
+  font-size:large;
+  width:9em;
+  height: 30px ;
+}
+#dir_index_item input,#dir_index_item select{
+  margin-right: 5px;
+  font-size: 15px;
+}
+#dir_course,#dir_semester,#dir_branch,#dir_startdate,#dir_enddate{
+  width: 12em;
+  height: 30px;
+}
+.dir_guide_container{
+  margin-top: 1vh;
+  height: 70vh;
+  width: 35%;
+  float: right;
+  box-shadow: -3px 3px 10px grey;
+}
+.dir_guide_container::after{
+  clear: both;
+  content: "";
+  display: table;
+}
+.dir_guide_container ul{
+  list-style: square;
+  line-height: 4vh;
+  font-size: 16px;
+  padding: 60px;
+  text-align: justify;
+  color: blue;
+}
 #activestatus_grid_container{
   float: right;
   display: grid;
   background:#9400d3;
   grid-template-columns:100%;
-  margin-top: 7vh;
   height: 92vh;
-  width: 10%;
+  width: 12%;
   color: white;
   padding-top: 40px;
   text-align: center;

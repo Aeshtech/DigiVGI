@@ -53,7 +53,6 @@ require('config.php');
                         </form>
                         <a href="adminProfile.php"><i class="fas fa-user-circle"></i>Profile</a>
                         <a href="adminPrivacy.php"><i class="fas fa-key"></i>Privacy</a>
-                        <a href="makeAdmin.php"><i class="fas fa-user-circle"></i>Make Admin</a>
                     </div>
                 </div>
             </div>
