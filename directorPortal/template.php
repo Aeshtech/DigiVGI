@@ -46,7 +46,7 @@ $username = $_SESSION['username_director'];
             <a href="dir_admin.php"><li>Admin</li></a>
             <a href="dir_faculty.php"><li>Faculty</li></a>
             <a href="dir_privacy.php"><li>Privacy</li></a>
-            <a href=""><li>About</li></a>
+            <a href="about.php"><li>About</li></a>
         </ul>
         </div>
 

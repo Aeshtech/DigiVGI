@@ -251,6 +251,7 @@ if(mysqli_num_rows($result)>0){ ?>
 
     <script>
     function selectall() {
+        // this will assign an array of specifed class elements in the variables x,y,z.
         var x = document.getElementsByClassName("present_button");
         var y = document.getElementsByClassName("absent_button");
         var z = document.getElementById("selectall").checked;

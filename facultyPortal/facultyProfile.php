@@ -1,8 +1,6 @@
 <!-- -------------------------------------------------*** JAI SHRI KRISHNA ***--------------------------------------- -->
 <?php
 session_start();
-
-
 if(!$_SESSION['username_faculty'])
 {
     header('Location: ../index.php');

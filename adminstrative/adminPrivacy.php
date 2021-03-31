@@ -1,6 +1,38 @@
 <!-- =======================================================JAI SHREE KRISHNA============================================ -->
 <?php 
-require("adminPrivacyAction.php");
+session_start();
+if(!$_SESSION['username_admin'])
+{
+    header('Location: ../index.php');
+}
+require('config.php');
+$username = $_SESSION['username_admin'];
+// ----------------------------For Update profile--------------------------------//
+
+if($_SERVER['REQUEST_METHOD']=='POST'){
+    $newPwd = $_POST['newPassword'];
+    $confirmPwd = $_POST['confirmPassword'];
+
+    if($newPwd ==''){
+        $_SESSION['pwdErr'] = 'Password should not be empty!';
+    }else if(strlen($newPwd)<6){
+        $_SESSION['pwdErr'] = 'Password length must be altleast six characters!';
+    }
+    else if($confirmPwd == ''){
+        $_SESSION['confirmPwdErr'] = 'Confirm password should not be empty!';
+    }else if($confirmPwd != $newPwd){
+        $_SESSION['confirmPwdErr'] = 'Password Confirmation does not match!';
+    }else{
+        $password = password_hash($confirmPwd,PASSWORD_BCRYPT);
+
+        $query = "UPDATE `admin` SET `password`='$password' WHERE `email`= '$username'";
+        $result = mysqli_query($conn,$query);
+
+        if(mysqli_affected_rows($conn)==1){
+            $_SESSION['success'] = 'Password updated successfully!';
+        }
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -41,7 +73,7 @@ require("adminPrivacyAction.php");
             ?>
             <br>
 
-        <form method="POST" action="adminPrivacyAction.php" autocomplete="off" >
+        <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) ?>" autocomplete="off" >
             <div class="label" style="margin:10px auto 80px;">
                 <h1>***Change Password***</h1>
             </div>
@@ -71,6 +103,10 @@ require("adminPrivacyAction.php");
             <input type="submit" value="Update" name="update" onclick="return confirm('Are you sure ?')">
         </form>
     </div>
-    
+    <script>
+        if(window.history.replaceState){
+        window.history.replaceState(null,null,window.location.href);
+    }
+    </script>
     </body>
 </html>

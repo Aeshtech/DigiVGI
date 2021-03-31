@@ -354,7 +354,7 @@ input[type="date"]:hover{
     border: 2px groove grey;
     box-shadow: 1px 1px 10px whitesmoke;
     border-radius: 20px;
-    width: 60%;
+    width: 70%;
 }
 #grid-item input[type="submit"]:hover,
 .view-record-container:hover,
@@ -568,14 +568,15 @@ input[type="date"]:hover{
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    top: 19vh;
+    top: 9rem;
     width: 20px;
     height: 20px;
 }
 .save_attendance{
     position: fixed;
     bottom: 2%;
-    right: 35%;
+    transform: translateX(-50%);
+    left: 50%;
     padding: 10px 15px;
     border:2px ridge black;
     outline: none;
@@ -856,3 +857,44 @@ tbody tr:nth-child(even){
       transform: translateX(-50%);
     }
   }
+
+/* ==================About Us Page===================== */
+.founder_coloumn{
+    border-bottom: 5px double blueviolet;
+    width: 100%;
+    margin: auto;
+}
+.founder_coloumn:hover{
+    box-shadow: 5px 5px 10px grey;
+}
+.main-section{
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    margin: auto;
+}
+.main-section section{
+    padding: 15px;
+    color:black;
+    text-align:justify;
+    line-height: 1.5;
+}
+.main-section section p{
+    font-size:15px;
+    padding-right: 10px;
+}
+.main-section section img{
+    margin-top:2vh;
+}
+@media (min-width:612px){
+    .founder_coloumn{
+        width: 65%;
+        margin:20vh auto auto;
+    }
+    .main-section{
+        width: 65%;
+    }
+    .main-section section img{
+        margin-top: 10vh;
+    }
+}

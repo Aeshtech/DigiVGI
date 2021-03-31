@@ -1,0 +1,92 @@
+<html>
+<head>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+  google.charts.load("current", {packages:["corechart"]});
+  google.charts.setOnLoadCallback(drawChart);
+  let chartarray = [];
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable(chartarray);
+
+    var options = {
+      title: 'Daily Attendance Status',
+      pieHole: 0.4,
+      chartArea: {
+            left: "22%",
+            top: "10%",
+            height: "100%",
+            width: "100%"
+        }
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+    chart.draw(data, options);
+  }
+
+
+  // azax---!
+  function showUser() {
+    var course = document.getElementById("dir_course").value;
+    var semester = document.getElementById("dir_semester").value;
+    var startdate = document.getElementById("dir_startdate").value;
+    var enddate = document.getElementById("dir_enddate").value;
+  if (course == ""){
+    document.getElementById("chart").innerHTML = '<h2>Please select any course.</h2>';
+    return;
+  }else if(startdate == "" || enddate ==""){
+    document.getElementById("chart").innerHTML = '<h2>Please select the date.</h2>';
+  }else {
+    document.getElementById("txtHint").innerHTML = "";
+  
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        chartarray = [   ['Status', 'Total Present Or Absent'],
+      ['Present', parseInt(this.responseText,10)],
+      ['Absent',100-parseInt(this.responseText,10)]];
+      document.getElementById("chart").innerHTML = '<div id="donutchart" style="width: 350px; height: 350px;"></div>';
+      drawChart();  
+    }
+    }
+    xmlhttp.open("POST","azax.php",true);
+    xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xmlhttp.send("course="+course+"&semester="+semester+"&startdate="+startdate+"&enddate="+enddate);
+  }}
+</script>
+</head>
+<body>
+
+<form>
+<select name="course" id="course">
+  <option value="">Select a course:</option>
+  <option value="B.Tech">B.Tech </option>
+  <option value="B.Pharma">B.Pharma</option>
+  <option value="B.Sc">B.Sc</option>
+  <option value="Polytechnic">Polytechnic</option>
+</select>
+<select name="semester" id="semester">
+  <option value="" selected>Select a semester</option>
+  <option value="1">1</option>
+  <option value="2">2</option>
+  <option value="3">3</option>
+  <option value="4">4</option>
+  <option value="5">5</option>
+  <option value="6">6</option>
+  <option value="7">7</option>
+  <option value="8">8</option>
+</select>
+
+<input type="date" id="startdate">
+<input type="date" id="enddate">
+
+<input type="button" onclick="showUser()" value="Click here">
+</form>
+
+
+<div id="txtHint"><h1>Status will be listed here</h1></div>
+<div id="chart"></div>
+
+
+</body>
+</html>

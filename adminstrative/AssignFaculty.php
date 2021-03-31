@@ -189,7 +189,7 @@ if(isset($_POST['update'])){
     <div class="row admin-dashboard">
 
         <div class="grid-item1 input-icons ">
-            <i class="fa fa-search  icon" style="top: 111px;"></i>
+            <i class="fa fa-search  icon"></i>
             <input class="input-field" type="text" onkeyup="filterTable4(event)" placeholder="---Search---">
         </div>
 

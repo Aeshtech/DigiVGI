@@ -71,15 +71,15 @@ if(isset($_POST['update_attendance'])){
             $i++;
         }
     }
-    $query5 = "SELECT DISTINCT `a`.`roll_no`,`s`.`email` FROM `attendance` as `a`,`student` as `s`  WHERE `a`.`roll_no`=`s`.`registration` AND `a`.`course`='$course' AND `a`.`branch`='$branch' AND `a`.`semester`='$semester' AND `a`.`section`='$section' AND `a`.`status`='Absent' AND `a`.`subject_code`='$subject_code' AND `a`.`date`='$date[0]'
-    INTERSECT (SELECT DISTINCT `a`.`roll_no`,`s`.`email` FROM `attendance` as `a`,`student` as `s`  WHERE `a`.`roll_no`=`s`.`registration` AND `a`.`course`='$course' AND `a`.`branch`='$branch' AND `a`.`semester`='$semester' AND `a`.`section`='$section' AND `a`.`status`='Absent' AND `a`.`subject_code`='$subject_code' AND `a`.`date`='$date[1]')
-    INTERSECT (SELECT DISTINCT `a`.`roll_no`,`s`.`email` FROM `attendance` as `a`,`student` as `s`  WHERE `a`.`roll_no`=`s`.`registration` AND `a`.`course`='$course' AND `a`.`branch`='$branch' AND `a`.`semester`='$semester' AND `a`.`section`='$section' AND `a`.`status`='Absent' AND `a`.`subject_code`='$subject_code' AND `a`.`date`='$date[2]')";
+    $query5 = "SELECT DISTINCT `a`.`roll_no`,`s`.`parentEmail` FROM `attendance` as `a`,`student` as `s`  WHERE `a`.`roll_no`=`s`.`registration` AND `a`.`course`='$course' AND `a`.`branch`='$branch' AND `a`.`semester`='$semester' AND `a`.`section`='$section' AND `a`.`status`='Absent' AND `a`.`subject_code`='$subject_code' AND `a`.`date`='$date[0]'
+    INTERSECT (SELECT DISTINCT `a`.`roll_no`,`s`.`parentEmail` FROM `attendance` as `a`,`student` as `s`  WHERE `a`.`roll_no`=`s`.`registration` AND `a`.`course`='$course' AND `a`.`branch`='$branch' AND `a`.`semester`='$semester' AND `a`.`section`='$section' AND `a`.`status`='Absent' AND `a`.`subject_code`='$subject_code' AND `a`.`date`='$date[1]')
+    INTERSECT (SELECT DISTINCT `a`.`roll_no`,`s`.`parentEmail` FROM `attendance` as `a`,`student` as `s`  WHERE `a`.`roll_no`=`s`.`registration` AND `a`.`course`='$course' AND `a`.`branch`='$branch' AND `a`.`semester`='$semester' AND `a`.`section`='$section' AND `a`.`status`='Absent' AND `a`.`subject_code`='$subject_code' AND `a`.`date`='$date[2]')";
 
     $result5 = mysqli_query($conn,$query5);
 
 
     $output='<strong style="color:Green;">Dear Parent </strong> ';
-    $output.='<p style="color:red;bakground:yellow;">Your ward is absent from three working days contniuously.</p>';
+    $output.='<p style="color:red;bakground:yellow;">Your ward is absent in '.$subject_name.' class from three working days continuously!!</p>';
     $output.='<p>-------------------------------------------------------------</p>';
     $output.='<p>Thanks,</p>';
     $output.='<p>From-<b>DigiVGI</p>';
@@ -97,7 +97,7 @@ if(isset($_POST['update_attendance'])){
         $mail->Host       = 'smtp.gmail.com';                      // Set the SMTP server to send through
         $mail->SMTPAuth   = true;                                 // Enable SMTP authentication
         $mail->Username   = 'ashishpandit5376@gmail.com';          // SMTP username
-        $mail->Password   = '@dev.digivgi2020';                      // SMTP password
+        $mail->Password   = '@dev.digivgi2020';                   // SMTP password
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;      // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
         $mail->Port       = 587;                                // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
         
@@ -107,7 +107,7 @@ if(isset($_POST['update_attendance'])){
 
         if(mysqli_num_rows($result5)!==""){
             while($row5=mysqli_fetch_assoc($result5)){
-                $mail->addBCC($row5['email']);     // Add a recipient
+                $mail->addBCC($row5['parentEmail']);     // Add recipients
             }
         }
         $mail->isHTML(true);                

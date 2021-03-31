@@ -91,13 +91,15 @@ while($t<=$total_columns){
 
 // this loop set total fetched dates values in upper most row..!!
 $y='C';
+$total_class = 0;
 while($row1=mysqli_fetch_object($result1)){
     $spreadsheet->getActiveSheet()
     ->setCellValue($y.'7', $row1->date);
     $y++;
+    $total_class ++;
 }
 
-$spreadsheet->getActiveSheet()->setCellValue($y.'7','Each Student Status');
+$spreadsheet->getActiveSheet()->setCellValue($y.'7','Total Class = '.$total_class);
 //this will set style bold of row 7. 
 $spreadsheet->getActiveSheet()->getStyle('A7:'.$y.'7')->getFont()->setBold(true);
 

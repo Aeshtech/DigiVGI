@@ -62,7 +62,7 @@ if(!$_SESSION['username_admin'])
             <div class="profile_div">
                 <span class="profile_name"><?php echo $username;?></span>
                 <div class="dropdown">
-                    <div class="profile"><img src="<?=$profile;?>"></div>
+                    <div class="profile"><img src="<?='../directorPortal/'.$profile;?>"></div>
                     <div class="dropdown-content">
                         <form action="../logout.php" method="POST">
                             <a><i class="fas fa-sign-out-alt"></i><input type="submit" name="signoutBtn" value="Log-out"

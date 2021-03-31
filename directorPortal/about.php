@@ -1,7 +1,7 @@
-<!-- =================================================JAI SHREE KRISHNA======================================== -->
-<?php 
-session_start();
-require('stu_header.php');
+<!-- =======================================================JAI SHREE KRISHNA============================================ -->
+<?php
+require("template.php");
+require('../adminstrative/config.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,15 +10,39 @@ require('stu_header.php');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About US</title>
-    
-    <link rel="stylesheet" href="../digivgi_styles.css">
     <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="../nivo-slider/themes/default/default.css" type="text/css" media="screen" />   
     <link rel="stylesheet" href="../nivo-slider/nivo-slider.css" type="text/css" media="screen" />
-</head>
+    <style>
+        .founder_coloumn{
+            position: absolute;
+            margin: 0;
+            top: 13vh;
+            left: 57%;
+            width: 65%;
+            transform: translateX(-50%);
+            border-bottom: 5px double blueviolet;
 
+        }
+        .main-section{
+            position: absolute;
+            width: 65%;
+            top: 70vh;
+            left: 57%;
+            transform: translateX(-50%);
+            font-family: sans-serif;
+            margin-bottom: 5vh;
+        }
+        div.dropdown-content{
+            right: 0;
+        }
+        .logodiv2 #logo{
+            left:54%;
+            top: 10px;
+        }
+    </style>
+</head>
 <body>
-    <div style="margin-top: 80px;"></div>
 
     <div class="founder_coloumn">
 

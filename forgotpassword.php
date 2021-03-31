@@ -62,7 +62,7 @@ if(isset($_POST["email"]) && (!empty($_POST["email"]))){
            $mail->Host       = 'smtp.gmail.com';                      // Set the SMTP server to send through
            $mail->SMTPAuth   = true;                                 // Enable SMTP authentication
            $mail->Username   = 'ashishpandit5376@gmail.com';          // SMTP username
-           $mail->Password   = '@dev.ashish11';                      // SMTP password
+           $mail->Password   = '@dev.digivgi2020';                      // SMTP password
            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;      // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
            $mail->Port       = 587;                                // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
            
@@ -160,6 +160,9 @@ if(isset($_POST["email"]) && (!empty($_POST["email"]))){
 
             <input class="f-submit" name="login_btn" type="submit" value="Send">
         </form>
+        <div class="gotosign-in">
+            <b>Goto</b>-<a href="index.php">Sign-in form</a>
+        </div>
     </div>
 
     <!--------- Footer -------->
