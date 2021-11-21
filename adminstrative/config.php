@@ -1,7 +1,7 @@
 <?php
 $host = "localhost";
 $username = "root";
-$password = "";
+$password = "Aeshtech";
 $dbname = "digivgi";
 
 $conn = new mysqli($host, $username, $password, $dbname);
