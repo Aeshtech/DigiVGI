@@ -1,0 +1,1148 @@
+body {
+    margin: 0 auto;
+    padding:0;
+    font:normal 75% Arial, Helvetica, sans-serif;
+    background-size: cover;
+    max-width: 100%;
+    max-height: 100%;
+}
+*{
+    box-sizing: border-box;
+}
+
+:root{
+    --primary:rgb(0, 102, 255);
+    --secondary:rgb(0, 255, 0);
+    --alert:red;
+    --lightgray:rgba(218, 214, 214, 0.897);
+}
+
+/*-------row----- */
+.row::after{
+    content: "";
+    clear: both;
+    display:table;
+}
+/* ---for mobiles--- */
+[class*="col-"]{
+    width: 100%;
+}
+/* ----for tablets---- */
+@media only screen and (max-width:600px)
+{
+    .col-t-1{width:25%;}
+    .col-t-2{width: 33.33%;}
+    .col-t-3{width: 40%}
+    .col-t-4{width: 50%}
+    .col-t-5{width: 60%;}
+    .col-t-6{width: 74%;} 
+    .col-t-7{width: 75%;}
+    .col-t-8{width: 100%;}
+}
+/* -------for desktops------- */
+@media only screen and (min-width:612px)
+{
+    .col-1{width:25%;}
+    .col-2{width: 33.33%;}
+    .col-3{width: 40%}
+    .col-4{width: 50%}
+    .col-5{width: 60%;}
+    .col-6{width: 74%;}
+    .col-7{width: 75%;}
+    .col-8{width: 100%;}
+}
+
+/* =============================================Preloader========================================= */
+
+div#wrapper{
+  position: fixed;
+  width: 35%;
+  height: 70vh;
+  z-index: 999999;
+  text-align: center;
+  color: #fff;
+  box-shadow: 3px 3px 10px grey;
+}
+#wrapper h3{
+  position: absolute;
+  color: darkviolet;
+  top: 40%;
+  left: 50%;
+  font-size: 30px;
+  transform: translateX(-50%);
+}
+#wrapper .loading-spinner{
+  position: absolute;
+  top: 27%;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 10rem;
+  height: 10rem;
+  display: inline-block;
+  border: 3px solid #b77bf180;
+  border-radius:50%;
+  border-top-color:darkviolet;
+  margin-bottom:10rem;
+  animation: spin 1s infinite ease-in-out;
+}
+@keyframes spin{
+  to{
+      transform:rotate(360deg);
+  }
+}
+
+#wrapper .loading-dots {
+  position: absolute;
+  top: 65%;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+.loading-dots > div{
+  width: 3rem;
+  height: 3rem;
+  background:darkviolet;
+  border-radius: 50%;
+  display: inline-block;
+  animation: bounce 1.5s infinite ease-in-out both;
+}
+.loading-dots .bounce1{
+  animation-delay: -0.30s;
+}
+.loading-dots .bounce2{
+  animation-delay: -0.15s;
+}
+
+@keyframes bounce {
+  0%,80%,100%{
+      transform:scale(0);
+  }
+  40%{
+      transform: scale(1);
+  }
+}
+/* ================================================================ */
+
+
+/* ========================Login-Form Navbar======================= */
+.log-navbar{
+    background:var(--primary);
+    height:50px;
+    box-shadow: 3px 3px 10px grey;
+    color:rgb(223, 240, 220);
+}
+#digivgi{
+  font-size: 3em;
+  font-family: georgia;
+  font-weight: bold;
+  color: white;
+  text-shadow: 4px 4px 10px grey;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+img.vgi_logo1{
+  width: 45%;
+  left: 10px;
+  position: absolute;
+  top: 60px;
+}
+img.vgi_logo2{
+  width: 32%;
+  right: 10px;
+  position: absolute;
+  top: 60px;
+}
+img.vgi_logo_bg{
+  width: 100%;
+  position: absolute;
+  top: 30vh;
+  opacity: 0.1;
+}
+/* ================Login Form=====================*/
+.box{
+  position: relative;
+  top: 15vh;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 85%;
+  height: 30em;
+  padding: 0px 0px 40px 0px;
+  box-sizing: border-box;
+  border: 2px solid var( --primary);
+  background: transparent;
+  border-radius: 20px;
+  box-shadow: 0 15px 25px rgba(0,0,0,.5);
+} 
+.box h2{
+    width: 100%;
+    height: 2em;  
+    background-color:var(--primary);  
+    color:white;
+    border-radius:17px 17px 0px 0px;  
+    margin:0px 0px 20px 0px;  
+    padding:7px;
+    font-size:2em;
+    font-weight:bolder;  
+    text-align:center; 
+}
+.box .inputbox {
+    position: relative;
+}
+.box .inputbox input{
+  width: 85%;
+  padding: 3px 0;
+  font-size: 16px;
+  font-weight: bold;
+  color: rgb(0, 0, 0);
+  letter-spacing: 1px;
+  background: transparent;
+  margin: 50px auto 60px;
+  border: none;
+  outline: none;
+  display: block;
+  border-bottom: 1px solid blue;
+  left: 50%;
+}
+
+.box .inputbox label{
+  position: absolute;
+  top: -10px;
+  left: 30px;
+  padding: 10px 0;
+  font-size: 16px;
+  font-weight: bold;
+  color: #827878;
+  pointer-events: none;
+  transition: .5s;
+}
+.box .inputbox input:valid ~ label,.box .inputbox input:hover ~ label{
+    position:absolute;
+    top:-50px;
+    left:65%;
+    color: var(--primary);
+}
+.box input[type="submit"]{
+  position: absolute;
+  left: 50%;
+  bottom: 4%;
+  transform: translateX(-50%);
+  background: transparent;
+  border: none;
+  outline: none;
+  border-radius: 15px;
+  background-color: var( --primary);
+  padding: 10px 38px;
+  color: white;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: bold; 
+}
+
+.remember_me{
+  position: absolute;
+  bottom: 20%;
+  left: 7%;
+  font-size: 15px;
+  color: var(--primary);
+}
+.forgotPassword,.gotosign-in{
+  position: absolute;
+  left: 50%;
+  text-align: center;
+  width: 100%;
+  bottom: -8vh;
+  font-size: 15px;
+  transform: translateX(-50%);
+}
+@media only screen and (min-width:430px){
+  .box{
+    width: 70%;
+  }
+}
+@media only screen and (min-width:612px){
+  .box{
+    width: 30%;
+  }
+  .box .inputbox label{
+    left: 40px;
+  }
+}
+/*=================footer============*/
+.svg-footer{
+  margin-top: 22.5vh;
+  bottom: 40px;
+}
+.footer{
+    margin-top: -2vh;
+    bottom: 0;
+    background: #e6e6fa;
+    height:30vh;
+    width: 100%;
+    text-align: center;
+    font-size:14px;
+    font-weight: bold;
+    color:var(--primary);
+    line-height: 10px;  
+}
+.footer i{
+  margin:0px 30px;
+}
+
+/* -------for desktops------- */
+@media only screen and (min-width:612px)
+{
+  img.vgi_logo1{
+    width: 30%;
+  }
+  img.vgi_logo2{
+    width: 25%;
+  }
+  img.vgi_logo_bg{
+    width: 28%;
+    position: absolute;
+    left: 50%;
+    top: 32vh;
+    transform: translateX(-50%);
+  }
+  .svg-footer{
+    display: none;
+  }
+  .footer{
+    margin-top: 35vh;
+  }
+}
+/* ======================Login Form End==================== */
+
+/* ==================================Admin Portal Header================================================ */
+.logodiv{
+  position: fixed;
+  width: 100%;
+  margin: 0;
+  text-align: center;
+  padding: 2px;
+  background:rgb(236, 236, 236);
+  height: 4em;
+  top: 0;
+  z-index: 20;
+}
+img#logo{
+  width: 40px;
+  border-radius: 50%;
+  position: absolute;
+  left: 54%;
+  top: 5px;
+}
+.logodiv h1{
+  font-size: 3em;
+  display: inline-block;
+  text-shadow: 2px 2px 4px black;
+  background: var(--primary);
+  color: white;
+  padding: 0px 70px 0px 20px;
+  border-radius: 20px;
+  border: 2px double white;
+  margin-top:0.5px;
+}
+
+.topnav {
+  background-color:var(--primary);
+  border: 2px ridge black;
+  position: fixed;
+  top:4em;
+  width: 100%;
+  height: 60px;
+  z-index: 20;
+
+}
+.topnav a {
+  float: left;
+  display: block;
+  color:rgb(255, 251, 251);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  font-weight: bold;
+}
+.topnav .active{
+  background: white;
+  color: var(--primary);
+  text-shadow: none;
+}
+.topnav a#myprofile{
+  float: right;
+}
+.topnav a:hover {
+  background-color:white;
+  color: black;
+}
+
+
+/* ==========Dropdown Profile========= */
+.profile_div{
+  float: right;
+  margin-right:10px;
+}
+.profile_name{
+  color: white;
+  font-weight: bold;
+  /* margin-bottom: 10px; */
+}
+.profile img{
+  border-radius: 50%;
+  border: 2px solid white;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top:50px;
+  right: 0;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 10;
+}
+
+.dropdown-content a {
+  float:right;
+  color: var(--primary);
+  text-shadow: none;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+.dropdown-content a i{
+  margin-right: 10px;
+}
+.dropdown-content input{
+  padding:0;
+  border: none;
+  outline: none;
+  background: none;
+  font-weight: bold;
+  font-size: 17px;
+}
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/*========================== For Dynamic Tables=========================== */
+div.row{
+  box-sizing: border-box;
+  padding: 5px;
+  margin-top:100px;
+}
+div.admin-dashboard{
+  display:grid;
+  grid-template-columns: 70%  auto;
+  width: 130%;
+  height: 84vh;
+  overflow-x:auto;
+  background-color:aqua;
+  margin-left:0px;
+  margin-top: 107px;
+}
+div.row .grid-item1{
+  position: relative;
+  grid-column: 3/4;
+  background:rgb(233, 236, 236);
+  height: 10vh;
+  border:1px solid blue;
+  box-shadow: 1px 1px 10px 0px rgb(97, 89, 89);
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+div.row .grid-item1 input[type="text"]{
+  width: 100%;
+  height: 45%;
+  border: none;
+  outline:none;
+  border-bottom: 2px solid blue;
+  background:transparent;
+  padding-left: 40px;
+  font-size: 20px;
+}
+div.row .grid-item1 input[type="text"]:hover{
+  background-color: yellow;
+}
+div.row .input-icons { 
+  width: 100%; 
+  margin-bottom: 10px; 
+}
+div.row .input-icons i{
+  position: absolute;
+}
+
+div.row .icon { 
+  padding: 16px; 
+  color: var(--primary); 
+  min-width: 40px; 
+  text-align: center; 
+}
+
+div.row .grid-item3{
+   background: var(--primary);
+   height: 72vh;
+   border:2px ridge blue;
+   box-shadow: 2px 2px 10px 5px rgb(97, 89, 89);
+   overflow-y:scroll;
+  }
+div.row .grid-item2 {
+  position: relative;
+  grid-column: 1/span 2;
+  grid-row: 1/3;
+  background: var(--lightgray);
+  height: 83vh;
+  border-top:2px solid blue;
+  border-left:2px solid blue;
+  box-shadow: 3px 3px 10px 0px black;
+  overflow: auto;
+  margin-right: 10px;
+  white-space: nowrap;
+}
+div.row .grid-item2 h1{
+  display: inline-block;
+  font-weight: bold;
+  font-size:x-large;
+  color: rgb(0, 26, 255);
+  text-shadow: 2px 2px 8px rgb(224, 218, 218);
+  margin:10px 30%;
+}
+div.row .grid-item3 h1{
+  text-align: center;
+  font-weight: bold;
+  color:white;
+  text-shadow: 2px 2px 6px black;
+  margin: 10px;
+  overflow: auto;
+}
+.grid-item3 label{
+  color: whitesmoke;
+  font-size: medium;
+}
+.grid-item3 .photodiv{
+  position: relative;
+}
+.grid-item3 .photodiv label{
+  background: white;
+  color: black;
+  font-weight: bold;
+  padding: 5px;
+  border: 2px solid;
+  margin: 6px;
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-30%);
+}
+.grid-item3 #output{
+  margin: 5px auto;
+  transform: translateX(6em);
+  border-radius: 50%;
+  height: 70px;
+  border: 2px solid white;
+  outline: none;
+  width: 70px;
+}
+.grid-item2 input[type="text"]{
+  width: 20%;
+  border: none;
+  outline:none;
+  border-bottom: 2px solid blue;
+  border-right: 2px solid blue;
+  background:transparent;
+  padding-left: 40px;
+  font-size: 20px;
+}
+.grid-item2 input[type="text"]:hover{
+  background-color: yellow;
+}
+div.input-icons{
+  display: inline;
+}
+div.input-icons i{
+  position: absolute;
+}
+div.row .icon { 
+  padding: 10px; 
+  color: var(--primary); 
+  min-width: 40px; 
+  text-align: center; 
+}
+
+/* -------status of operations------- */
+#success_status{
+  display: inline-block;
+  position: absolute;
+  top: 2vh;
+  left: 70%;
+  width: 200px;
+  height: 25px;
+  text-align: center;
+}
+#failed_status{
+  display: inline-block;
+  position: absolute;
+  top: 2vh;
+  left: 70%;
+  width: 200px;
+  height: 25px;
+  text-align: center;
+}
+#success_status b{
+  color:rgb(0, 202, 44);
+  font-size: large;
+  padding: 7px;
+  background: rgb(255, 255, 255);
+  border-radius: 20px;
+  border:2px solid greenyellow ;
+  box-shadow: 5px 5px 10px grey;
+}
+#failed_status b{
+  color:white;
+  font-weight: bold;
+  padding: 7px;
+  background: red;
+  border-radius: 20px;
+  border:2px solid white ;
+  box-shadow: 5px 5px 10px grey;
+}
+
+#success_status b,#failed_status b,span.common_mssg,span.success_mssg{
+  animation: hidestatus 0s ease-in 5s forwards;
+}
+@keyframes hidestatus{
+  to{
+    width: 0;
+    height: 0;
+    visibility:hidden;
+  }
+}
+
+
+/*-------------------------------------------Styling Table and form-------------------------------------------------*/
+
+table{ border-collapse: collapse;}
+table.List{ width:100%;}
+
+th { border: 2px solid #161616; padding: 4px; color:black;font-size: 16px;font-weight: bold; text-align: left;}
+td { border: 1px solid #aca7a7; color:black; font-size:small; font-weight: bold; text-align: left; padding: 4px;}
+td:hover:not(td:last-of-type),th:hover{background-color:#262738;color: white;}
+tr:nth-child(even),table.List thead>tr { background-color: #ffffff;text-shadow: 1px 1px 7px rgb(182, 174, 174);}
+
+.grid-item3 input,#course,#branch,#semester,#section,#gender{
+  width: 70%; padding: 12px 20px; margin: 8px auto; display: block; 
+  border: 1px solid #ccc; border-radius: 10px; box-sizing: border-box;}
+
+.grid-item3 input[type=submit]{ width: 70%; background-color:greenyellow;border: 2px ridge var(--alert); color:var(--alert); font:20px bold;
+    margin-top: 40px; cursor: pointer;}
+    
+/* Hover effect for form Inputs */
+.grid-item3 input:hover,#gender:hover,#course:hover,#branch:hover,#semester:hover,#section:hover,#course:hover{
+  background-color: greenyellow;
+}
+.grid-item3 input[type="submit"]:hover{
+  background-color:var(--alert);
+  color: white;
+}
+/* Focus effect for form Inputs */
+.form input:focus, #gender:focus,#course:focus,#branch:focus,#semester:focus,#section:focus,#dob:focus,#studentDOB:focus{
+  background-color: yellow;
+}
+
+/* ---------Anchor's tag in the Table's Action field------- */
+table td form{
+  display: inline-block;
+}
+table td .show{ cursor: pointer;font-weight:bold;text-decoration: none;border: 2px ridge var(--primary); border-radius: 5px; padding: 5px; color:var(--primary); margin-right: 4px;box-shadow: 1px 1px 5px black;}
+table.List .show:hover{ cursor: pointer;text-decoration: none;background-color: var(--primary); border-radius: 5px; padding: 5px; color:white; margin-right: 4px;}
+
+table td .update{ cursor: pointer;font-weight:bold;text-decoration: none;border: 2px ridge rgb(159, 1, 250); border-radius: 5px; padding: 5px; color:rgb(159, 1, 250); margin-right: 4px;box-shadow: 1px 1px 5px black;}
+table.List .update:hover{ cursor: pointer;text-decoration: none;background-color: rgb(159, 1, 250); border-radius: 5px; padding: 5px; color:white; margin-right: 4px;}
+
+table.List .delete{ cursor: pointer;font-weight:bold;text-decoration: none;border: 2px ridge var(--alert); border-radius: 5px; padding: 5px; color:var(--alert); margin-right: 4px;box-shadow: 1px 1px 5px black;}
+table.List .delete:hover{ cursor: pointer;text-decoration: none;background-color: var(--alert); border-radius: 5px; padding: 5px; color:white; margin-right: 4px;}
+
+/* ------for validation error mssg--------- */
+label.validation-error{ color: red;background-color: white; margin-left: 5px;}
+.hide{ display:none;}
+
+
+
+
+/* ---------------------Courses Form-------------------------------- */
+div.coursesform{
+  position:absolute;
+  top: 150px;
+  left: 30%;
+  background: var(--primary);
+  height: 540px;
+  width: 500px;
+  text-align: center;
+  border:2px ridge blue;
+  box-shadow: 2px 2px 10px 5px rgb(97, 89, 89);
+ }
+
+ div.coursesform h1{
+  text-align: center;
+  font-weight: bold;
+  color:white;
+  text-shadow: 2px 2px 6px black;
+  margin: 20px auto 40px;
+  overflow: auto;
+}
+
+ div.coursesform input{
+  width: 70%; padding: 12px 20px; margin: 15px auto; display: block; 
+  border: 1px solid #ccc; border-radius: 10px; box-sizing: border-box;}
+
+ div.coursesform input[type=submit]{ width: 70%; background-color:rgb(217, 255, 0); color:var(--alert); font:20px bold;
+    margin:50px auto; border: 2px ridge var(--alert); border-radius: 10px; cursor: pointer;}
+  
+/* Hover effect for form Inputs */
+div.coursesform form input:hover{
+  background-color: greenyellow;
+}
+div.coursesform form input[type="submit"]:hover{
+  background-color:var(--alert);
+  color: white;
+}
+/* Focus effect for form Inputs */
+div.coursesform form input:focus{
+  background-color: yellow;
+}
+
+
+/* ============================================Profile Update ==========================*/
+
+.update_profile{
+  text-align: center;
+  margin-top:0;
+  color:black;
+  font-weight:bold;
+  font-size: 16px;
+}
+.update_profile .back_btn{
+  border: none;
+  position: fixed;
+  color: white;
+  background: rgb(0, 102, 255);
+  padding: 10px;
+  font-size: medium;
+  border-radius: 10px;
+  outline: none;
+  top: 10vh;
+  left: 5%;
+}
+.update_profile img{
+width:100px;
+height:100px;
+border-radius:50%;
+border:2px solid black;
+margin-top:5px;
+clear: both;
+}
+.update_profile label{
+  display: initial;
+}
+.update_profile input{
+  width:70%;
+  font-size: 18px;
+  font-weight: bold;
+  color:blueviolet;
+  padding: 10px;
+  margin: 10px;
+  border:none;
+  outline: none;
+  border-bottom: 2px solid blueviolet;
+  background: none;
+}
+.update_profile select{
+  width: 30%;
+  color: var(--primary);
+  font-size: 16px;
+  padding: 10px;
+  margin: 10px;
+  border:none;
+  outline: none;
+  border-bottom: 2px solid white;
+  background: none;
+}
+.update_profile input[type="submit"]{
+  width: 20%;
+  font-size: 20px;
+  margin-top: 40px;
+  padding: 5px;
+  background: none;
+  border: 2px solid black;
+  border-radius: 20px;
+  outline: none;
+}
+.update_profile input[type="submit"]:hover{
+  background:chartreuse;
+  color:black;
+}
+.update_profile span{
+  background: white;
+  color: red;
+  padding: 4px;
+  border-radius: 5px;
+}
+.update_profile span{
+  animation: hideme 0s ease-in 4s forwards;
+}
+
+@keyframes hideme{
+  to{
+    width: 0;
+    height: 0;
+    visibility:hidden;
+  }
+}
+
+.update_privacy input{
+  margin-top: 20px;
+}
+
+.update_profile + .admin-profile-note{
+  position: absolute;
+  right: 20px;
+  top: 14vh;
+  color: white;
+  font-weight: bold;
+  font-style: italic;
+  width: 20%;
+  text-align: justify;
+  background: var(--primary);
+  padding: 10px;
+  border-radius: 20px;
+}
+
+/* =======================================================Admin Home======================================================== */
+
+#home-grid{
+  display: grid;
+  grid-template-columns: 33.33% 33.33% 33.33%;
+  background:white;
+  height: 80vh;
+  margin-top: 13vh;
+  padding: 10px;
+  padding-top:20px;
+  box-sizing: border-box;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.home-grid-item1{
+  color: white;
+  height: 73vh;
+  background: var(--primary);
+  border-radius: 20px;
+  margin: 10px;
+  text-align: center;
+  border: 5px ridge blue;
+}
+.home-grid-item2{
+  color: white;
+  height: 73vh;
+  background: var(--primary);
+  border-radius: 20px;
+  margin: 10px;
+  text-align: center;
+  border: 5px ridge blue;
+}
+.home-grid-item3{
+  color: white;
+  height: 73vh;
+  background: var(--primary);
+  border-radius: 20px;
+  margin: 10px;
+  text-align: center;
+  border: 5px ridge blue;
+}
+.home-grid-item1:hover{
+  box-shadow: 7px 7px 10px grey;
+}
+.home-grid-item2:hover{
+  box-shadow: 7px 7px 10px grey;
+}
+.home-grid-item3:hover{
+  box-shadow: 7px 7px 10px grey;
+}
+
+
+/* ====================Grid-item inputs==================== */
+
+#home-grid input:hover,select:hover{
+  background:chartreuse;
+}
+#home-grid input:focus,select:focus{
+  background: yellow;
+}
+/* .home-grid-item1,.home-grid-item2,.home-grid-item3{
+  position: relative;
+} */
+.home-grid-item1 label,.home-grid-item2 label,.home-grid-item3 label{
+  font-weight: bold;
+}
+.home-grid-item1 select,.home-grid-item2 select,.home-grid-item3 select,
+.home-grid-item1 input,.home-grid-item2 input,.home-grid-item3 input{
+  width: 70%;
+  display: block;
+  padding: 7px;
+  border: none;
+  border-radius: 10px;
+  outline: none;  
+  margin:3px auto;
+}
+div.home-footer{
+    color:white;
+    background-color: var(--primary);
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    height: 35px;
+    font-size: medium;
+    bottom: 0;
+    padding: 5px;
+    font-size: 20px;
+}
+div.home-footer a{
+  color: white;
+  font-size: medium;
+  float: right;
+  margin-right:20px ;
+}
+
+
+
+  /* =======================================================Director Portal================================= */
+
+#dir_left{
+    width: 15%;
+    position: fixed;
+    float: left;
+    height: 100vh;
+    background:darkviolet;
+    background-position: top;
+}
+
+#dir_profile_left{
+  position: relative;
+}
+#dir_profile_left img{
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border-color:black;
+  position: absolute;
+  top: 5vh;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#dir_nav-left{
+  margin: 25vh 3em auto;
+  background:rgb(245, 243, 243);
+  border-radius: 20px;
+  padding: 20px;
+}
+#dir_nav-left ul{
+  padding:0;
+}
+#dir_nav-left li{
+  list-style-type:none;
+  font-size:22px;
+  font-weight: bold;
+  color:blueviolet;
+  margin-top: 25px;
+}
+
+#dir_top-container{
+  width: 85%;
+  float: right;
+  position: fixed;
+  right: 0;
+  z-index: 50;
+}
+.logodiv2{
+  width: 100%;
+  background: darkviolet;
+  height:4em;
+  box-shadow:9px 3px 7px dimgrey;
+}
+.logodiv2 h1{
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-block;
+  text-shadow: 2px 2px 4px black;
+  background: var(--primary);
+  color: white;
+  font-size: 2.2em;
+  font-weight: bold;
+  padding: 0px 60px 4px 10px;
+  border-radius: 20px;
+  border: 2px double white;
+  margin-top: 3.5px
+}
+.logodiv2 #logo{
+  position: absolute;
+  left: 53%;
+  top: 6px;
+  width: 35px;
+}
+.profile_name{
+  color: white;
+} 
+.dir_nav-footer{
+  background:white;
+  color: #161616;
+  font-size: 16px;
+  position: absolute;
+  bottom: 10px;
+  left: 22px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 2px solid black;
+}
+
+#dir_main{
+  width: 85%;
+  height: 93vh;
+  float: right;
+  margin-top: 7vh;
+  background:rgba(85, 15, 117, 0.137);
+}
+
+span.common_mssg{
+  background: white;
+  color: red;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 10px;
+  border: 2px solid red;
+  border-radius: 10px;
+}
+span.success_mssg{
+  background: rgb(49, 255, 8);
+  color: rgb(4, 66, 4);
+  font-size: 15px;
+  font-weight: bold;
+  padding: 10px;
+  border: 2px solid rgb(16, 56, 4);
+  border-radius: 10px;
+}
+.search-div{
+  width: 20%;
+  position: absolute;
+  right: 20px;
+  top: 10vh;
+}
+.search-div input{
+  width: 100%;
+  height: 4vh;
+  color: darkviolet;
+  font-size: 18px;
+  border: 2px solid darkviolet;
+}
+
+.grid-item2 h2{
+  text-align: center;
+  color: darkviolet;
+  font-weight: bold;
+  margin: 0;
+}
+#dir_index_container{
+  margin-left: 19em;
+  position: relative;
+  top: 7vh;
+  width: 85%;
+  height: 92vh;
+}
+#dir_index_item{
+  height: 87vh;
+}
+#donutchart{
+  width: 550px;
+  height: 550px;
+}
+#donutchart:hover{
+  box-shadow: 3px 3px 10px grey;
+}
+.dir_azax_input{
+  margin: 2vh 0 0 2em;
+  display: inline-block;
+}
+.dir_azax_input input[type="button"]{
+  background:darkviolet;
+  color:white;
+  font-size:large;
+  width:9em;
+  height: 30px ;
+}
+#dir_index_item input,#dir_index_item select{
+  margin-right: 5px;
+  font-size: 15px;
+}
+#dir_course,#dir_semester,#dir_branch,#dir_startdate,#dir_enddate{
+  width: 12em;
+  height: 30px;
+}
+.dir_guide_container{
+  margin-top: 1vh;
+  height: 70vh;
+  width: 35%;
+  float: right;
+  box-shadow: -3px 3px 10px grey;
+}
+.dir_guide_container::after{
+  clear: both;
+  content: "";
+  display: table;
+}
+.dir_guide_container ul{
+  list-style: square;
+  line-height: 4vh;
+  font-size: 16px;
+  padding: 60px;
+  text-align: justify;
+  color: blue;
+}
+#activestatus_grid_container{
+  float: right;
+  display: grid;
+  background:#9400d3;
+  grid-template-columns:100%;
+  height: 92vh;
+  width: 12%;
+  color: white;
+  padding-top: 40px;
+  text-align: center;
+}
+#activestatus_grid_item{
+  background:whitesmoke;
+  height: 20vh;
+  margin: 7px;
+  padding: 10px;
+  text-align: center;
+  border-radius: 25px;
+  color: darkviolet;
+}
+#activestatus_grid_item h1,#activestatus_grid_item h2{
+  color: darkviolet;
+  font-weight: bold;
+}

@@ -1,0 +1,900 @@
+/* ---------------------------------------------------*** JAI SHREE KRISHNA ***---------------------------------------- */
+
+/* ===========================Overlay Menu Nav Bar============================== */
+
+:root{
+    --theme:linear-gradient(-135deg,#c850c0,#4158d8);
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+}
+/* ============================================== Header========================================== */
+.header {
+    background-color: white;
+    box-shadow: 0px 3px 11px blueviolet;
+    position:fixed;
+    top: 0;
+    text-align: center;
+    width: 100%;
+    height: 60px;
+    z-index: 900;
+    transition: top 1s ease-out;
+}
+.header a {
+    color:var(--myprimary);
+}
+
+.header ul {
+    text-align: center;
+    margin-top: 8px;
+    padding: 0;
+    list-style: none;
+    overflow: hidden;
+    background-color: #fff;
+}
+
+.header li{
+    /* display: block; */
+    color: white;
+    padding: 10px 0px;
+    border-right: 1px solid #f4f4f4;
+    text-decoration: none;
+}
+.header li a{
+    display: inline-block;
+    color: white;
+    text-decoration: none;
+    padding: 10px 40px;
+    font-size: x-large;
+}
+.header li a:hover{
+    color: blueviolet;
+    background: white;
+    border-radius: 20px;
+}
+.header li:first-child{
+    padding-top:30px;
+}
+
+
+.header .profile img{
+    float: left;
+    width: 45px;
+    height: 45px;
+    margin: 6px;
+    border: 2px solid blueviolet;
+    border-radius: 50%;
+}
+ .header .logo{
+    display: inline-block;
+    margin-top: 15px;
+    transform: translateX(-22%);
+ }
+ .header .logo h2{
+    color: blueviolet;
+    font-size: xx-large;
+ }
+ .header .logo img{
+    position: absolute;
+    top: -5px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    transform: translateX(162%);    
+ }
+ div.logo-for-lap{
+     display: none;
+ }
+ div.logo-for-lap h1{
+     color: white;
+     display: inline-block;
+     margin-top: 5px;
+ }
+ div.logo-for-lap img{
+    position: absolute;
+    top: 2px;
+    left: 55%;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;    
+ }
+ 
+/* -----------menu-------------- */
+.header .menu {
+    clear: both;
+    height: 0;
+    background:var(--theme);
+    transition: height .5s ease-out;
+}
+
+/* menu icon */
+.header .menu-icon {
+    cursor: pointer;
+    display: block;
+    float: right;
+    padding: 28px 20px;
+    position: relative;
+    user-select: none;
+}
+
+.header .menu-icon .navicon {
+    background: #333;
+    display: block;
+    height: 2px;
+    position: relative;
+    /* transition: background .2s ease-out; */
+    width: 18px;
+}
+
+.header .menu-icon .navicon:before,
+.header .menu-icon .navicon:after {
+    background: #333;
+    content: '';
+    display: block;
+    height: 100%;
+    position: absolute;
+    transition: all .2s ease-out;
+    width: 100%;
+}
+
+.header .menu-icon .navicon:before {
+    top: 5px;
+}
+
+.header .menu-icon .navicon:after {
+    top: -5px;
+}
+
+/* menu btn */
+.header .menu-btn {
+    display: none;
+}
+
+.header .menu-btn:checked~.menu {
+    height: 100vh;
+}
+
+.header .menu-btn:checked~.menu-icon .navicon {
+    background: transparent;
+}
+
+.header .menu-btn:checked~.menu-icon .navicon:before {
+    transform: rotate(-45deg);
+}
+
+.header .menu-btn:checked~.menu-icon .navicon:after {
+    transform: rotate(45deg);
+}
+
+.header .menu-btn:checked~.menu-icon:not(.steps) .navicon:before,
+.header .menu-btn:checked~.menu-icon:not(.steps) .navicon:after {
+    top: 0;
+}
+
+@media (min-width:620px) {
+    .header{
+        top: 50px;
+    }
+    .header .logo{
+        display: none;
+    }
+    div.logo-for-lap{
+        display: block;
+        position: fixed;
+        top: 0;
+        z-index: 50;
+        width: 100%;
+        background:var(--theme);
+        height:50px;
+        text-align:center;
+    }
+    .header li {
+        float: left;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .header li a{
+        display: initial;
+        padding: 10px 30px;
+    }
+    .header li a:hover{
+        background:none;
+        color:white;
+        text-decoration: underline;
+    }
+    .header li:first-child{
+        padding-top: 9px;
+    }
+    .header .menu {
+        clear: none;
+        float: right;
+        height: 40px;
+    }
+
+    .header .menu-icon {
+        display: none;
+    }
+}
+
+/* ----------------------------Profile------------------------ */
+.dropdown {
+    position: relative;
+    /* display: inline-block; */
+  }
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    top:50px;
+    left: 0;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 10;
+  }
+  .dropdown-content a {
+    color: blueviolet;
+    text-shadow: none;
+    font-size: 16px;
+    padding: 10px 5px;
+    text-decoration: none;
+    display: block;
+  }
+  .dropdown-content input{
+    padding: 8px 15px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    color: white;
+    background: blueviolet;
+    font-weight: bold;
+    font-size: 17px;
+  }
+  .dropdown-content a i{
+    margin-right: 10px;
+  }
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+
+/* ===========================================Subjects Grid=================================== */
+.attendance-mssg{
+    text-align: center;
+    color:black;
+    background:chartreuse;
+    border-radius: 30px;
+    margin-top:70px;
+    animation: hidestatus 0s ease-in 3s forwards;
+}
+@keyframes hidestatus{
+    to{
+      width: 0;
+      height: 0;
+      visibility:hidden;
+    }
+  }
+  
+#grid-container{
+    display: grid;
+    background:whitesmoke;
+    grid-template-columns: auto;
+    min-height: 83vh;
+    Padding: 10px;  
+}
+
+#grid-item{
+    position: relative;
+    background:var(--theme);
+    height: 33vh;
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
+    border-radius: 10px;
+}
+.subject-name{
+    color:white;
+    background:rgba(137, 43, 226, 0.973);
+    border-radius: 20px;
+    overflow: hidden;
+    height: 5vh;
+    padding: 5px;
+    word-break: break-all;
+}
+
+.subject-code{
+    color: white;
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: Arial, Helvetica, sans-serif;
+}
+input[type="date"]{
+    padding: 10px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    font-size: 23px;
+    outline: none;
+    border:none;
+    border-radius: 10px;
+    width: 65%;
+    height: 31px;
+}
+input[type="date"]:hover{
+    background:rgba(0, 0, 0, 0.678);
+    color: white;
+}
+#grid-item .view-record{
+    position: absolute;
+    bottom: 10px;
+    left: 10%;
+}
+#grid-item .export-record{
+    position: absolute;
+    bottom: 10px;
+    right: 10%;
+}
+#grid-item input[type="submit"],
+.view-record-container,
+.export-record-container{
+    padding: 5px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 45%;
+    font-size:20px;
+    color: white;
+    background: blueviolet;
+    outline: none;
+    border: 2px groove grey;
+    box-shadow: 1px 1px 10px whitesmoke;
+    border-radius: 20px;
+    width: 70%;
+}
+#grid-item input[type="submit"]:hover,
+.view-record-container:hover,
+.export-record-container:hover{
+    background:greenyellow;
+    color: indigo;
+}
+
+@media (min-width:620px){
+    #grid-container{
+        min-height: 75vh;
+        grid-template-columns: 33.33% 33.33% 33.33%;
+        padding: 20px;
+    }
+    #grid-item{
+        margin:10px 30px;
+    }
+    .attendance-mssg{
+        margin-top: 125px;
+    }
+}
+
+/* ======================================Modal for View Record========================== */
+
+.modalDialog {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 99999;
+    opacity:0;
+    -webkit-transition: opacity 100ms ease-in;
+    -moz-transition: opacity 100ms ease-in;
+    transition: opacity 0.5s ease-in;
+    pointer-events: none;
+}
+.modalDialog:target {
+    opacity:1;
+    pointer-events: auto;
+}
+.modalDialog > div {
+    max-width: 800px;
+    width: 90%;
+    position: relative;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 20px;
+    background: #fff;
+}
+.close {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f26d7d;
+    color: #fff;
+    line-height: 25px;
+    position: absolute;
+    right: -12px;
+    text-align: center;
+    top: -10px;
+    width: 34px;
+    height: 34px;
+    text-decoration: none;
+    font-weight: bold;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    -moz-box-shadow: 1px 1px 3px #000;
+    -webkit-box-shadow: 1px 1px 3px #000;
+    box-shadow: 1px 1px 3px #000;
+    padding-top: 5px;
+}
+.close:hover {
+    background:red;
+}
+.modalDialog h2{
+    color: white;
+    background: rgba(0, 0, 0, 0.678);
+    border-radius: 20px;
+    margin-bottom: 15px;
+}
+.modalDialog b{
+    color: red;
+}
+.modalDialog input[type='date']{
+    margin:20px 0px;
+    width: 10em;
+    border:none;
+    outline:none;
+    background:yellow;
+    color: black;
+}
+.modalDialog input[type='submit']{
+    margin:10px auto 0px;
+    background: blueviolet;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 20px;
+    padding: 10px;
+    outline: none;
+}
+
+
+
+/* ================================================== Students_Grid =============================== */
+.navBottom{
+    margin-top:60px;
+    background:none;
+    height:1px;
+}
+#grid-container-aesh{
+    display: grid;
+    background:whitesmoke;
+    grid-template-columns: auto;
+    Padding: 10px;
+    margin-bottom: 10vh;
+}
+#grid-item-aesh{
+    position: relative;
+    background:var(--theme);
+    height: 14vh;
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
+    border-radius: 10px;
+    clear: both;
+    content: "";
+    display: flow-root;
+}
+#grid-item-aesh input{
+    visibility:hidden;
+}
+.subject_name{
+    background:rgba(0, 38, 255, 0.767);
+    text-align: center;
+    border-radius: 20px;
+    padding: 5px;
+    margin: 10px 20px;
+    margin-bottom:5vh;
+}
+.subject_name h2{
+    color: yellow;
+}
+.subject_name b{
+    color: white;
+    margin: auto 3px;
+}
+
+.student_name{
+    color:white;
+    background:rgba(137, 43, 226, 0.973);
+    border-radius: 20px;
+}
+.student_name h2{
+    display: inline;
+    font-size: 20px;
+}
+.student_name .serial-no{
+    font-size: 18px;
+    font-weight: bold;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background: white;
+    color: black;
+    padding-top: 5px;
+    border-radius: 50%;
+    min-width: 33px;
+    min-height: 33px;
+    position: absolute;
+    left: 10px;
+    top: 8px;
+    text-align: center;
+}
+.status-label1{
+    float: left;
+    margin: 10px 5px 5px 10px;
+}
+
+.status-label2{
+    float: right;
+    margin: 10px 0px;
+}
+.status-label1 strong{
+    background: white;
+    padding: 5px 10px;
+    border: 2px solid chartreuse;
+    border-radius: 15px;
+    position: absolute;
+    top: 9vh;
+}
+.status-label1 input[type="radio"]:checked + strong{
+    background: chartreuse;
+    color: darkgreen;
+}
+.status-label2 strong{
+    background: white;
+    padding: 5px 10px;
+    border: 2px solid red;
+    border-radius: 15px;
+    position: absolute;
+    top: 9vh;
+    right: 10px;
+}
+.status-label2 input[type="radio"]:checked + strong{
+    background: red;
+    color: white;
+}
+
+#selectall{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 9rem;
+    width: 20px;
+    height: 20px;
+}
+.save_attendance{
+    position: fixed;
+    bottom: 2%;
+    transform: translateX(-50%);
+    left: 50%;
+    padding: 10px 15px;
+    border:2px ridge black;
+    outline: none;
+    background:yellow;
+    color :black;
+    border-radius: 15px;
+    font-size: 16px;
+    font-weight:bolder;
+}
+.save_attendance:hover{
+    border: 2px ridge black;
+}
+
+@media (min-width:620px){
+    #grid-container-aesh{
+        width: 35%;
+        margin: 50px auto;
+    }
+    .navBottom{
+        margin-top: 115px;
+    }
+}
+
+/* =================================================View Attendance Table=========================== */
+
+table.view_attendance{
+    border-collapse: collapse;
+    overflow: scroll;
+    width: 100%;
+    font-size: 15px;
+    font-family: system-ui;
+    color: yellow;
+    background: black;
+    white-space: nowrap;
+    margin-top:5px;
+    text-align: justify;
+}
+.view_attendance thead{
+    border-top: 2px solid yellow;
+    border-bottom: 2px solid yellow;
+    height: 20px;
+}
+thead th{
+    padding: 10px;
+}
+tbody td{
+    padding: 5px;
+}
+tbody tr:nth-child(even){
+    background: rgba(255, 255, 255, 0.123);
+}
+.subject-name-over-table{
+    color: yellow;
+    background: black;
+    text-align: center;
+    padding: 10px;
+    border: 2px solid yellow;
+    margin: 10px;
+    border-radius: 20px;
+}
+.subject-name-over-table h2{
+    color: white;
+}
+.subject-name-over-table b{
+    margin:5px;
+}
+.subject-name-container{
+    color: yellow;
+    background: black;
+    text-align: center;
+    padding: 5px;
+    border: 3px groove yellow;
+    border-radius: 30px;
+    margin: 10px 10px 0px 10px;
+    box-shadow:2px 2px 10px #333;
+}
+/* ============================================Profile Update ========================== */
+.profile_bg{
+    background:blueviolet;
+}
+.update_profile{
+    text-align: center;
+    margin-top: 5%;
+}
+.update_profile b{
+    color: red;
+    background: white;
+}
+.update_profile{
+    cursor: pointer;
+    color:white;
+    font-weight:bold;
+    font-size: 16px;
+}
+.update_profile img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 2px solid white;
+}
+.update_profile input{
+    width: 70%;
+    font-size: 17px;
+    color: white;
+    padding: 10px;
+    margin: 10px 20px;
+    border:none;
+    outline: none;
+    border-bottom: 2px solid white;
+    background: none;
+}
+.update_profile select{
+    width: 70%;
+    font-size: 16px;
+    color:black;
+    padding: 10px;
+    margin: 20px;
+    border:none;
+    outline: none;
+    border-bottom: 2px solid white;
+    background: none;
+}
+.update_profile input[type="submit"]{
+    width: 40%;
+    font-size: 20px;
+    padding: 5px;
+    background: none;
+    border: 2px solid white;
+    border-radius: 20px;
+    outline: none;
+}
+.update_profile input[type="submit"]:hover{
+    background:chartreuse;
+    color:black;
+}
+
+.update_profile .back_btn{
+    position: fixed;
+    left: 10px;
+    font-weight: bold;
+    font-size: medium;
+    padding: 7px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    color:blueviolet;
+    background:white;
+}
+
+@media (min-width:620px){
+    .update_profile input{
+        width: 35%;
+    }
+    .update_profile input[type="submit"]{
+        width: 15%;
+    }
+    .update_profile .back_btn{
+        left: 10em;
+        top: 20vh;
+    }
+    .update_profile select{
+        width: 35%;
+    }
+}
+
+
+/* =============================================STUDENT PORTAL========================================= */
+#grid-item .heart{
+    fill: red;
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
+    width: 30px;
+    animation: pulsing-heart 1s ease infinite;
+}
+@keyframes pulsing-heart{
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
+}
+
+#grid-item .pulse-button-p {
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    left: 20px;
+    bottom: 10px;
+    color:rgba(0, 0, 0, 0.849);
+    font-weight: bold;
+    font-size: 20px;
+    border: none;
+    outline: none;
+    box-shadow: 0 0 0 0 rgba(51, 252, 32, 0.7);
+    border-radius: 50%;
+    background-color:chartreuse;
+    background-image: url(YOUR-URL-IMAGE.png);
+    background-size:cover;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    -webkit-animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+    -moz-animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+    -ms-animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+    animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+  }
+  #grid-item .pulse-button-p:hover 
+  {
+    -webkit-animation: none;-moz-animation: none;-ms-animation: none;animation: none;
+  }
+  @-webkit-keyframes pulse {to {box-shadow: 0 0 0 45px rgba(232, 76, 61, 0);}}
+  @-moz-keyframes pulse {to {box-shadow: 0 0 0 45px rgba(232, 76, 61, 0);}}
+  @-ms-keyframes pulse {to {box-shadow: 0 0 0 45px rgba(232, 76, 61, 0);}}
+  @keyframes pulse {to {box-shadow: 0 0 0 45px rgba(232, 76, 61, 0);}}
+  
+#grid-item .pulse-button-a {
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    left: 20px;
+    bottom: 10px;
+    color:rgba(255, 255, 255, 0.87);
+    font-weight: bold;
+    font-size: 20px;
+    border: none;
+    outline: none;
+    box-shadow: 0 0 0 0 rgba(255, 4, 4, 0.7);
+    border-radius: 50%;
+    background-color:red;
+    background-image: url(YOUR-URL-IMAGE.png);
+    background-size:cover;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    -webkit-animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+    -moz-animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+    -ms-animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+    animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+  }
+  #grid-item .pulse-button-a:hover 
+  {
+    -webkit-animation: none;-moz-animation: none;-ms-animation: none;animation: none;
+  }
+  @-webkit-keyframes pulse {to {box-shadow: 0 0 0 45px rgba(232, 76, 61, 0);}}
+  @-moz-keyframes pulse {to {box-shadow: 0 0 0 45px rgba(232, 76, 61, 0);}}
+  @-ms-keyframes pulse {to {box-shadow: 0 0 0 45px rgba(232, 76, 61, 0);}}
+  @keyframes pulse {to {box-shadow: 0 0 0 45px rgba(232, 76, 61, 0);}}
+  
+  /* =============================================================================================================== */
+
+/*=================footer============*/
+  .footer{
+      background: var(--theme);
+      height:10vh;
+      width: 100%;
+      text-align: center;
+      font-size:14px;
+      font-weight: bold;
+      color: white;
+      line-height: 10px;  
+  }
+  .footer i{
+    margin:0px 30px;
+    color: white;
+  }
+  
+  /* -------for desktops------- */
+  @media only screen and (min-width:612px)
+  {
+    img.vgi_logo1{
+      width: 30%;
+    }
+    img.vgi_logo2{
+      width: 25%;
+    }
+    img.vgi_logo_bg{
+      width: 28%;
+      position: absolute;
+      left: 50%;
+      top: 32vh;
+      transform: translateX(-50%);
+    }
+  }
+
+/* ==================About Us Page===================== */
+.founder_coloumn{
+    border-bottom: 5px double blueviolet;
+    width: 100%;
+    margin: auto;
+}
+.founder_coloumn:hover{
+    box-shadow: 5px 5px 10px grey;
+}
+.main-section{
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    margin: auto;
+}
+.main-section section{
+    padding: 15px;
+    color:black;
+    text-align:justify;
+    line-height: 1.5;
+}
+.main-section section p{
+    font-size:15px;
+    padding-right: 10px;
+}
+.main-section section img{
+    margin-top:2vh;
+}
+@media (min-width:612px){
+    .founder_coloumn{
+        width: 65%;
+        margin:20vh auto auto;
+    }
+    .main-section{
+        width: 65%;
+    }
+    .main-section section img{
+        margin-top: 10vh;
+    }
+}
